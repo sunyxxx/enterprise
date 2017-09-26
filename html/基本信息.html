@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单管理</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bk_pro.css" rel="stylesheet">
+    <link href="css/bkDialog.css" rel="stylesheet">
+    <link href="css/iconfont.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
+</head>
+<body class="ffs">
+
+<nav class="bk-horz-nav bk-horz-nav-min">
+    <div class="bk-nav-logo fl">
+        <!-- <img src="https://magicbox.bkclouds.cc/static_api/v3/components_pro/horizontal_nav1/images/logo.png"> -->
+        法法社企业后台管理系统
+    </div>
+    <ul class="ffs-breadcrumb">
+        <li class="fir"><a href="#none">首页</a></li>
+        <li class="sec"><a href="#none">二级页面</a></li>
+        <li class="last active"><a href="#none">三级页面</a></li>
+    </ul>
+    <div class="bk-nav-user fr">
+        <span class="mr5">admin</span>
+        <img src="https://magicbox.bkclouds.cc/static_api/v3/components_pro/horizontal_nav1/images/avatar.png">
+    </div>
+</nav>
+<div class="bk-layout bk-layout-has-sidebar" style="height:calc(100% - 60px)">
+    <div class="bk-sidebar slide-open">
+        <div class="slide-switch">
+            <i class="icon bk-icon icon-dedent f14"></i>
+        </div>
+        <div class="nav-list">
+            <ul>
+                <li>
+                    <a href="javascript:;">
+                        <span class="icon-box"><i class="bk-icon icon-order"></i></span>
+                        <span class="nav-name">订单管理</span>
+                    </a>
+                    <div class="flex-subnavs">
+                        <a href="订单管理-短信订单.html"><i></i>短信订单</a>
+                        <a href="订单管理-电子信函.html"><i></i>电子信函</a>
+                    </div>
+                </li>
+                <li class="pureLink open">
+                    <a href="基本信息.html">
+                        <span class="icon-box"><i class="bk-icon icon-empty"></i></span>
+                        <span class="nav-name">基本信息</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="copyright">
+            <p>Copyright &copy; 2012-2017 法法社.</p>
+            <span>All Rights Reserved.</span>
+        </div>
+    </div>
+    <div class="page-content">
+          <div class="info">
+            <div class="cont">
+                <h5>账号信息</h5>
+                <form class="bk-form" id="validate_form" method="POST" action="javascript:;">
+                    <div class="bk-form-item">
+                        <label class="bk-label">账号：</label>
+                        <div class="bk-form-content">
+                            <input style="width: 200px" type="text" class="bk-form-input" name="" placeholder="" value="13634340013" readonly><span class="hint">如果更换手机，请联系市场经理修改</span>
+                        </div>
+                    </div>
+                    <div class="bk-form-item mt5">
+                        <label class="bk-label">密码：</label>
+                        <div class="bk-form-content">
+                            <a data-toggle="modal" data-target="#myModal" class="bk-text-button bk-info ml10" title="修改密码">修改密码</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="cont">
+                <h5>结算信息</h5>
+                <form class="bk-form" id="validate_form" method="POST" action="javascript:;">
+                    <div class="bk-form-item">
+                        <label class="bk-label">短信剩余次数：</label>
+                        <div class="bk-form-content">
+                            <input type="text" class="bk-form-input" name="" placeholder="" value="30000" readonly>
+                        </div>
+                    </div>
+                    <div class="bk-form-item mt0">
+                        <label class="bk-label">短信剩余次数：</label>
+                        <div class="bk-form-content">
+                            <input type="text" class="bk-form-input" name="" placeholder="" value="30000" readonly>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> -->
+            <div class="bk-dialog-tool">
+                <i class="bk-dialog-close" id="bkDialogClose" data-dismiss="modal" aria-label="Close"></i>
+            </div>
+            <h4 class="modal-title" id="mySmallModalLabel">修改密码</h4>
+        </div>
+        <div class="modal-body change-psw-modal">
+
+            <div class="verification">
+                <form class="bk-form">
+                    <div class="bk-form-item">
+                        <label class="bk-label">你的账号手机为：</label>
+                        <div class="bk-form-content">
+                            <!-- <input type="text" class="bk-form-input" name="" placeholder="" value="13634340013" readonly> -->
+                            <span class="bk-label-text">13634340013</span>
+                        </div>
+                    </div>
+                    <div class="bk-form-item">
+                        <label class="bk-label">你的账号手机为：</label>
+                        <div class="bk-form-content">
+                            <input type="text" class="bk-form-input code-input" name="" placeholder="请输入您收到的验证码" >
+                            <button type="button" class="btn btn-default code-btn">发送验证码</button>
+                            <!-- 交互说明：
+                                 点击发送后，切换为60秒后重新发送，并进行倒计时更改数字。
+                                 同时按钮添加 disabled
+                            -->
+                        </div>
+                    </div>
+                    <div class="bk-form-item">
+                        <div class="bk-form-content">
+                            <a class="bk-button bk-primary" title="下一步">下一步</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="change-psw">
+                <form class="bk-form">
+                    <div class="bk-form-item">
+                        <label class="bk-label">请输入你的新密码：</label>
+                        <div class="bk-form-content">
+                            <input type="password" class="bk-form-input psw-input" name="" >
+                        </div>
+                    </div>
+                    <div class="bk-form-item">
+                        <label class="bk-label">请重复输入新密码：</label>
+                        <div class="bk-form-content">
+                            <input type="password" class="bk-form-input psw-input" name="" >
+                        </div>
+                        <div class="bk-form-content err">
+                            <span class="bk-label-text">两次密码输入不匹配，请重新输入</span>
+                        </div>
+                    </div>
+                    <div class="bk-form-item">
+                        <div class="bk-form-content">
+                            <a class="bk-button bk-primary" title="确定修改">确定修改</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/common.js"></script>
+<script type="text/javascript">
+$('#time .check-list-button').click(function() {
+    $('#time .check-list-button').removeClass('on');
+    $(this).toggleClass('on');
+});
+$('#status .check-list-button').click(function() {
+    $('#status .check-list-button').removeClass('on');
+    $(this).toggleClass('on');
+});
+$('#source .check-list-button').click(function() {
+    $('#source .check-list-button').removeClass('on');
+    $(this).toggleClass('on');
+});
+</script>
+</body>
+
+</html>

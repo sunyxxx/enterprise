@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>目目学院-客户管理系统</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bk_pro.css" rel="stylesheet">
+    <link href="css/bkDialog.css" rel="stylesheet">
+    <link href="css/iconfont.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
+	<link href="css/index.css" rel="stylesheet">
+</head>
+<body class="ffs">
+
+<div class="index-cont">
+	<h1 class="logo">法法社CRM客户管理同</h1>
+	<form>
+		<input type="text" class="bk-form-input" name="validation_name" placeholder="账号">
+		<input type="password" class="bk-form-input" name="validation_name" placeholder="密码">
+		<a class="button" title="登录"><span>登录</span></a>
+		<div class="other-link">
+			<a data-toggle="modal" data-target="#myModal" class="bk-text-button bk-info fr" title="忘记密码">忘记密码?</a>
+		</div>
+		<span class="note">如忘记账号，请联系市场经理</span>
+	</form>
+</div>
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> -->
+            <div class="bk-dialog-tool">
+                <i class="bk-dialog-close" id="bkDialogClose" data-dismiss="modal" aria-label="Close"></i>
+            </div>
+            <h4 class="modal-title" id="mySmallModalLabel">修改密码</h4>
+        </div>
+        <div class="modal-body change-psw-modal">
+
+            <div class="verification">
+                <form class="bk-form">
+                    <div class="bk-form-item">
+                        <label class="bk-label">你的账号手机为：</label>
+                        <div class="bk-form-content">
+                            <input type="text" class="bk-form-input" name="" placeholder="请输入你的账号手机" value="" >
+                            <!-- <span class="bk-label-text">13634340013</span> -->
+                        </div>
+                    </div>
+                    <div class="bk-form-item">
+                        <label class="bk-label">你的账号手机为：</label>
+                        <div class="bk-form-content">
+                            <input type="text" class="bk-form-input code-input" name="" placeholder="请输入您收到的验证码" >
+                            <button type="button" class="btn btn-default code-btn">发送验证码</button>
+                            <!-- 交互说明：
+                                 点击发送后，切换为60秒后重新发送，并进行倒计时更改数字。
+                                 同时按钮添加 disabled
+                            -->
+                        </div>
+                    </div>
+                    <div class="bk-form-item">
+                        <div class="bk-form-content">
+                            <a class="bk-button bk-primary" title="下一步">下一步</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="change-psw">
+                <form class="bk-form">
+                    <div class="bk-form-item">
+                        <label class="bk-label">请输入你的新密码：</label>
+                        <div class="bk-form-content">
+                            <input type="password" class="bk-form-input psw-input" name="" >
+                        </div>
+                    </div>
+                    <div class="bk-form-item">
+                        <label class="bk-label">请重复输入新密码：</label>
+                        <div class="bk-form-content">
+                            <input type="password" class="bk-form-input psw-input" name="" >
+                        </div>
+                        <div class="bk-form-content err">
+                            <span class="bk-label-text">两次密码输入不匹配，请重新输入</span>
+                        </div>
+                    </div>
+                    <div class="bk-form-item">
+                        <div class="bk-form-content">
+                            <a class="bk-button bk-primary" title="确定修改">确定修改</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+  </div>
+</div>
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
