@@ -154,7 +154,7 @@
                                 </el-upload>
                             </div>
                             <div class="bk-form-content pt5">
-                            <a class="bk-text-button bk-info" title="下载号码包模板，请按照模板填充内容" :href="templateExecelUrl" download>下载号码包模板，请按照模板填充内容</a>
+                            <a class="bk-text-button bk-info" title="下载号码包模板，请按照模板填充内容" href="http://fafashe.oss-cn-shenzhen.aliyuncs.com/template/%E7%9F%AD%E4%BF%A1%E5%8F%B7%E7%A0%81%E5%8C%85%E6%A8%A1%E6%9D%BF.xlsx" download>下载号码包模板，请按照模板填充内容</a>
                             </div>
                         </div>
                     </form>
@@ -163,37 +163,7 @@
             <div class="modal-footer ta-c">
                 <a class="bk-button bk-primary" data-dismiss="modal" title="提交订单" @click="onSubmitOrder" v-loading="isSubmittingOrder">提交订单</a>
             </div>
-            <!--<div class="cont mb0" >-->
-            <!--<el-form label-width="120px">-->
-                <!--<el-form-item label="律所：">-->
-                    <!--<span class="bk-label-text">仁良律所</span>-->
-                <!--</el-form-item>-->
-                <!--<el-form-item label="选择模板：">-->
-                    <!--<select name="validation_select" class="bk-form-select" v-model="selectedTemplateId">-->
-                    <!--<option class="hide"></option>-->
-                    <!--<option v-for="templateData in templateList" :value="templateData.templateId">-->
-                    <!--{{templateData.templateName}}-->
-                    <!--</option>-->
 
-                    <!--</select>-->
-                <!--</el-form-item>-->
-                <!--<el-form-item label="模板内容：">-->
-                    <!--<textarea class="bk-form-textarea ignore" readonly>{{templateContent}}</textarea>-->
-                <!--</el-form-item>-->
-                <!--<el-form-item label="上传号码包：">-->
-                    <!--<el-upload  class="upload-demo" :action="uploadPolicy.host" :multiple="uploadConfig.multiple" :data="uploadConfig.data" :on-success="uploadSuccess" :on-change="uploadChange" :on-error="uploadError" :on-remove="uploadRemove" :accept="uploadConfig.accept" :file-list="fileList"  :before-upload="beforeUpload">-->
-                    <!--</el-upload>-->
-                    <!--<div class="bk-form-content pt5">-->
-                    <!--<a class="bk-text-button bk-info" title="下载号码包模板，请按照模板填充内容" :href="templateExecelUrl" download>下载号码包模板，请按照模板填充内容</a>-->
-                    <!--</div>-->
-                <!--</el-form-item>-->
-
-            <!--</el-form>-->
-
-            <!--</div>-->
-            <!--<div class="modal-footer ta-c">-->
-                <!--<a class="bk-button bk-primary"  title="提交订单" @click="onSubmitOrder" v-loading="isSubmittingOrder">提交订单</a>-->
-            <!--</div>-->
         </el-dialog>
         <el-dialog title="订单详情" v-model="viewOrderDetailShow" :close-on-click-modal="false">
             <div class="modal-body ffs-modal">
@@ -316,106 +286,7 @@
             <div class="modal-footer ta-c">
                 <a class="bk-button bk-primary" data-dismiss="modal" title="添加" @click="closeViewOrderDetail">关闭</a>
             </div>
-            <!--<div class="info" v-show="!viewDetailListShow">-->
-                <!--<div class="cont">-->
-                    <!--<h5>下单信息</h5>-->
-                    <!--<div style="width:100%;margin:0 auto;">-->
-                    <!--<el-form label-width="120px">-->
-                        <!--<el-form-item label="订单类型：">-->
-                            <!--<input type="text" style="border-style:none" class="bk-form-input" name="" placeholder="" :value="orderBaseInfo.orderType" readonly>-->
-                        <!--</el-form-item>-->
-                        <!--<el-form-item label="订单来源：">-->
-                            <!--<input type="text" style="border-style:none" class="bk-form-input" name="" placeholder="" :value="orderBaseInfo.orderSource" readonly>-->
-                        <!--</el-form-item>-->
-                        <!--<el-form-item label="订单单号：">-->
-                            <!--<input type="text" style="border-style:none" class="bk-form-input" name="" placeholder="" :value="orderBaseInfo.orderId" readonly>-->
-                        <!--</el-form-item>-->
-                        <!--<el-form-item label="下单时间：">-->
-                            <!--<input type="text" style="border-style:none"  class="bk-form-input" name="" placeholder="" :value="orderBaseInfo.createTime" readonly>-->
-                        <!--</el-form-item>-->
-                        <!--<el-form-item label="联系电话：">-->
-                            <!--<input type="text" style="border-style:none" class="bk-form-input" name="" placeholder="" :value="orderBaseInfo.phoneNum" readonly>-->
-                        <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--</div>-->
 
-                <!--</div>-->
-                <!--<div class="cont">-->
-                    <!--<h5>业务信息</h5>-->
-                    <!--<div style="width:100%;margin:0 auto;">-->
-                    <!--<el-form label-width="120px">-->
-                        <!--<el-form-item label="律所：">-->
-                            <!--<input type="text" style="border-style:none" class="bk-form-input" name="" placeholder="" :value="orderBaseInfo.lawFirmName" readonly>-->
-                        <!--</el-form-item>-->
-                        <!--<el-form-item label="模板：">-->
-                            <!--<textarea class="bk-form-textarea ignore" readonly>{{orderBaseInfo.templateContent}}</textarea>-->
-                        <!--</el-form-item>-->
-                        <!--<el-form-item label="发送时间：">-->
-                            <!--<input type="text" style="border-style:none" class="bk-form-input" name="" placeholder="" :value="orderBaseInfo.sendTime" readonly>-->
-                        <!--</el-form-item>-->
-                        <!--<el-form-item label="第三方：">-->
-                            <!--<input type="text" style="border-style:none" class="bk-form-input" name="" placeholder="" value="法大大" readonly>-->
-                        <!--</el-form-item>-->
-                        <!--<el-form-item label="到达时间：">-->
-                            <!--<p class="mb0" v-if="orderBaseInfo.orderState===350"><span class="fb bk-text-success ml10">{{orderStateText(orderBaseInfo.orderState)}}</span>({{orderBaseInfo.successNum}}/{{orderBaseInfo.totalNum}})</p>-->
-                            <!--<p class="mb0" v-else><span class="fb bk-text-success ml10">{{orderStateText(orderBaseInfo.orderState)}}</span></p>-->
-                        <!--</el-form-item>-->
-                        <!--<el-form-item label="发送明细：">-->
-                            <!--<a class="bk-text-button bk-info ml10" title="查看明细" @click="viewDetailList">查看明细</a>-->
-                        <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--</div>-->
-
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="detail" v-show="viewDetailListShow">-->
-                <!--<div class="modal-header" style="margin-top: -20px">-->
-                    <!--<a  class="bk-button bk-default bk-button-small mb15 fl" style="margin-left: -15px" title="返回" @click="closeDetailList"><span>返回</span></a>-->
-                    <!--&lt;!&ndash;a class="bk-button bk-default bk-button-small mb15 fr" title="批量导入"><span>批量导入</span></a&ndash;&gt;-->
-                <!--</div>-->
-
-                <!--<div class="bk-panel bk-demo">-->
-                    <!--<div class="bk-panel-header" role="tab">-->
-                        <!--<div class="bk-panel-info fl">-->
-                            <!--<div class="panel-title">短信发送明细</div>-->
-                        <!--</div>-->
-                        <!--<div class="bk-panel-action fr">-->
-                            <!--<div class="bk-form bk-inline-form bk-form-small">-->
-                                <!--<div class="bk-form-item is-required">-->
-                                    <!--<div class="bk-form-content">-->
-                                        <!--<input type="text" class="bk-form-input" placeholder="请输入关键字" style="width:150px;">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<button class="bk-button bk-primary bk-button-small" title="查询">查询</button>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="bk-panel-body">-->
-                        <!--<table class="bk-table">-->
-                            <!--<thead>-->
-                            <!--<tr>-->
-                                <!--<th>号码</th>-->
-                                <!--<th>发送状态</th>-->
-                            <!--</tr>-->
-                            <!--</thead>-->
-                            <!--<tbody>-->
-                            <!--<tr v-for="deliveryDetail in sendDetailList">-->
-                                <!--<td>{{deliveryDetail.mobile}}</td>-->
-                                <!--<td>-->
-                                    <!--<span class="fb bk-text-danger">{{smsSendStateText(deliveryDetail.state)}}</span>-->
-                                <!--</td>-->
-                            <!--</tr>-->
-                            <!--</tbody>-->
-                        <!--</table>-->
-                    <!--</div>-->
-                    <!--<div class="bk-panel-footer"></div>-->
-                <!--</div>-->
-
-            <!--</div>-->
-            <!--<div class="modal-footer ta-c">-->
-
-                <!--<a class="bk-button bk-primary"  title="添加" @click="closeViewOrderDetail">关闭</a>-->
-            <!--</div>-->
         </el-dialog>
     </section>
 </template>
@@ -577,7 +448,15 @@
 
             },
             dateTime(val) {
-                return moment(val).format('YYYY-MM-DD');
+                var date = new Date(val *1000);
+                var Y = date.getFullYear() + '-';
+                var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+                var D = date.getDate() + ' ';
+                var h = date.getHours() + ':';
+                var m = date.getMinutes() + ':';
+                var s = date.getSeconds();
+                return (Y+M+D+h+m+s);
+               // return moment(val).format('YYYY-MM-DD');
             },
             orderStateText(val) {
                 switch (val) {
