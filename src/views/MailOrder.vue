@@ -42,9 +42,7 @@
                 <div class="bk-panel-action fl">
                     <div class="bk-form bk-inline-form bk-form-small">
                         <div class="bk-form-item is-required">
-                            <div class="bk-form-content">
-                                <input type="text" class="bk-form-input" placeholder="请输入搜索关键字" style="width:290px;">
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -87,9 +85,7 @@
                 </table>
             </div>
             <div class="bk-panel-footer p10">
-                <button class="bk-button bk-default bk-button-small fl" title="下载搜索结果">
-                    下载搜索结果
-                </button>
+
                 <div class="bk-page bk-compact-page fr">
                     <ul>
                         <li class="page-item">
@@ -234,25 +230,6 @@
                                 <label class="bk-label">模板：</label>
                                 <div class="bk-form-content">
                                     <a class="bk-text-button bk-info ml10" target="_blank" :href="orderBaseInfo.templateContent" title="查看模板">查看模板</a>
-                                </div>
-                            </div>
-                            <div class="bk-form-item mt5">
-                                <label class="bk-label">发送时间：</label>
-                                <div class="bk-form-content">
-                                    <input type="text" class="bk-form-input" name="" placeholder="" :value="orderBaseInfo.sendTime" readonly>
-                                </div>
-                            </div>
-                            <div class="bk-form-item mt5">
-                                <label class="bk-label">第三方：</label>
-                                <div class="bk-form-content">
-                                    <p class="mb0"><span class="fb bk-text-info">法大大</span> ,<span class="fb bk-text-info">法大大</span> ,<span class="fb bk-text-info">法大大</span></p>
-                                </div>
-                            </div>
-                            <div class="bk-form-item mt5">
-                                <label class="bk-label">到达时间：</label>
-                                <div class="bk-form-content">
-                                    <p class="mb0" v-if="orderBaseInfo.orderState===350"><span class="fb bk-text-success ml10">{{orderStateText(orderBaseInfo.orderState)}}</span>({{orderBaseInfo.successNum}}/{{orderBaseInfo.totalNum}})</p>
-                                    <p class="mb0" v-else><span class="fb bk-text-success ml10">{{orderStateText(orderBaseInfo.orderState)}}</span></p>
                                 </div>
                             </div>
                             <div class="bk-form-item mt5">
