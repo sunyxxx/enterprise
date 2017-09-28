@@ -11,7 +11,7 @@
                     <el-button type="primary" class="button" style="width:100%;margin-top: 0;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
                 </el-form-item>
                 <div class="other-link">
-                    <el-button class="bk-text-button bk-info fr" title="忘记密码" @click="isShowModifyPwdDialog=true">忘记密码?</el-button>
+                    <a class=" fr" title="忘记密码" @click="isShowModifyPwdDialog=true">忘记密码?</a>
                 </div>
                 <span class="note">如忘记账号，请联系市场经理</span>
 

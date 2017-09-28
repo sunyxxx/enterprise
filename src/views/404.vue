@@ -10,17 +10,7 @@ export default {
 
         },
         mounted() {
-            var user = sessionStorage.getItem('user');
-            if (user) {
-                user = JSON.parse(user);
-                this.sysUserName = user.name || '';
-                this.sysUserAvatar = user.role || '';
-                if (this.sysUserAvatar !== 99) {
-                    this.$router.push('/orderConten');
-                } else {
-                    this.$router.push('/users');
-                }
-            }
+            var user = sessionStorage.getItem('user'); 
         }
 }
 </script>

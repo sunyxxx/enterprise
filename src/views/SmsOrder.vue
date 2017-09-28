@@ -18,9 +18,8 @@
                             <a class="bk-button bk-default bk-button-small check-list-button" title="" :class="orderState===20?'on':''" @click="updateOrderState(20)"><span>发送失败</span></a>
                         </div>
                     </div>
-
                     <div class="row more-query-cont mb15">
-                        <div class="col-md-3 col-lg-3 col-xs-3">
+                        <div class="col-md-5 col-lg-5 col-xs-5">
                             <div class="bk-form-item mb20">
                                 <label class="bk-label pr15" style="width:100px;">订单号：</label>
                                 <div class="bk-form-content" style="margin-left:100px;">
@@ -34,7 +33,6 @@
                             </div>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
@@ -63,28 +61,28 @@
             <div class="bk-panel-body p0">
                 <table class="bk-table has-thead-bordered">
                     <thead>
-                    <tr>
-                        <!-- <th style="width:25px">
+                        <tr>
+                            <!-- <th style="width:25px">
                             <input type="checkbox" name="checkall" value="">
                         </th> -->
-                        <th>订单号</th>
-                        <th>律所</th>
-                        <th>当前状态</th>
-                        <th>提交时间</th>
-                        <th style="width:325px">操作</th>
-                    </tr>
+                            <th>订单号</th>
+                            <th>律所</th>
+                            <th>当前状态</th>
+                            <th>提交时间</th>
+                            <th style="width:325px">操作</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="orderItem in orderList">
-                        <td>{{orderItem.orderId}}</td>
-                        <td>{{orderItem.lawFirmName}}</td>
-                        <td v-if="orderItem.orderState === 350"><span class="fb bk-text-success">{{orderStateText(orderItem.orderState)}}</span>({{orderItem.succNum}}/{{orderItem.totalNum}})</td>
-                        <td v-else><span class="fb bk-text-success">{{orderStateText(orderItem.orderState)}}</span></td>
-                        <td>{{dateTime(orderItem.createTime)}}</td>
-                        <td>
-                            <a class="bk-text-button" @click="viewOrderDetail(orderItem.orderId)">查看详情</a>
-                        </td>
-                    </tr>
+                        <tr v-for="orderItem in orderList">
+                            <td>{{orderItem.orderId}}</td>
+                            <td>{{orderItem.lawFirmName}}</td>
+                            <td v-if="orderItem.orderState === 350"><span class="fb bk-text-success">{{orderStateText(orderItem.orderState)}}</span>({{orderItem.succNum}}/{{orderItem.totalNum}})</td>
+                            <td v-else><span class="fb bk-text-success">{{orderStateText(orderItem.orderState)}}</span></td>
+                            <td>{{dateTime(orderItem.createTime)}}</td>
+                            <td>
+                                <a class="bk-text-button" @click="viewOrderDetail(orderItem.orderId)">查看详情</a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -95,12 +93,12 @@
                 <div class="bk-page bk-compact-page fr">
                     <ul>
                         <li class="page-item">
-                            <a  class="page-button" @click="onClickPrevPage">
+                            <a class="page-button" @click="onClickPrevPage">
                                 <i class="bk-icon icon-angle-left"></i>
                             </a>
                         </li>
                         <li class="page-item" v-for="pageIndex in pageIndexList" :class="curPageIndex===pageIndex?'cur-page':''">
-                            <a  class="page-button" @click="onClickSomePage(pageIndex)">{{pageIndex}}</a>
+                            <a class="page-button" @click="onClickSomePage(pageIndex)">{{pageIndex}}</a>
                         </li>
                         <li class="page-item">
                             <a class="page-button" @click="onClickNextPage">
@@ -125,11 +123,10 @@
                             <label class="bk-label">选择模板：</label>
                             <div class="bk-form-content">
                                 <select name="validation_select" class="bk-form-select" v-model="selectedTemplateId">
-                                <option class="hide"></option>
-                                <option v-for="templateData in templateList" :value="templateData.templateId">
-                                {{templateData.templateName}}
-                                </option>
-
+                                    <option class="hide"></option>
+                                    <option v-for="templateData in templateList" :value="templateData.templateId">
+                                        {{templateData.templateName}}
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -139,22 +136,16 @@
                                 <textarea class="bk-form-textarea ignore" readonly>{{templateContent}}</textarea>
                             </div>
                         </div>
-
                         <div class="bk-form-item mt5">
                             <label class="bk-label">上传号码包：</label>
                             <div class="bk-form-content pt5">
-
-                                <el-upload
-                                        class="upload-demo"
-                                        :action="uploadPolicy.host"
-                                        :on-remove="uploadRemove"
-                                        :file-list="fileList" :on-success="uploadSuccess" :data="uploadConfig.data" :on-error="uploadError" :before-upload="beforeUpload">
+                                <el-upload class="upload-demo" :action="uploadPolicy.host" :on-remove="uploadRemove" :file-list="fileList" :on-success="uploadSuccess" :data="uploadConfig.data" :on-error="uploadError" :before-upload="beforeUpload">
                                     <el-button size="small" type="primary">点击上传</el-button>
                                     <div slot="tip" class="el-upload__tip">只能上传Excel文件</div>
                                 </el-upload>
                             </div>
                             <div class="bk-form-content pt5">
-                            <a class="bk-text-button bk-info" title="下载号码包模板，请按照模板填充内容" href="http://fafashe.oss-cn-shenzhen.aliyuncs.com/template/%E7%9F%AD%E4%BF%A1%E5%8F%B7%E7%A0%81%E5%8C%85%E6%A8%A1%E6%9D%BF.xlsx" download>下载号码包模板，请按照模板填充内容</a>
+                                <a class="bk-text-button bk-info" title="下载号码包模板，请按照模板填充内容" href="http://fafashe.oss-cn-shenzhen.aliyuncs.com/template/%E7%9F%AD%E4%BF%A1%E5%8F%B7%E7%A0%81%E5%8C%85%E6%A8%A1%E6%9D%BF.xlsx" download>下载号码包模板，请按照模板填充内容</a>
                             </div>
                         </div>
                     </form>
@@ -163,7 +154,6 @@
             <div class="modal-footer ta-c">
                 <a class="bk-button bk-primary" data-dismiss="modal" title="提交订单" @click="onSubmitOrder" v-loading="isSubmittingOrder">提交订单</a>
             </div>
-
         </el-dialog>
         <el-dialog title="订单详情" v-model="viewOrderDetailShow" :close-on-click-modal="false">
             <div class="modal-body ffs-modal">
@@ -250,410 +240,398 @@
                 <div class="info" v-show="viewDetailListShow">
                     <div class="cont-btns">
                         <a id="back_cont" class="bk-button bk-default bk-button-small mb15 fl" title="返回" @click="closeDetailList"><span>返回</span></a>
-
                     </div>
-
                     <div class="bk-panel bk-demo">
                         <div class="bk-panel-header" role="tab">
                             <div class="bk-panel-info fl">
                                 <div class="panel-title">短信发送明细</div>
                             </div>
-
                         </div>
                         <div class="bk-panel-body">
                             <table class="bk-table">
                                 <thead>
-                                <tr>
-                                    <th>号码</th>
-                                    <th>发送状态</th>
-                                </tr>
+                                    <tr>
+                                        <th>号码</th>
+                                        <th>发送状态</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="deliveryDetail in sendDetailList">
-                                <td>{{deliveryDetail.mobile}}</td>
-                                <td>
-                                <span class="fb bk-text-danger">{{smsSendStateText(deliveryDetail.state)}}</span>
-                                </td>
-                                </tr>
+                                    <tr v-for="deliveryDetail in sendDetailList">
+                                        <td>{{deliveryDetail.mobile}}</td>
+                                        <td>
+                                            <span class="fb bk-text-danger">{{smsSendStateText(deliveryDetail.state)}}</span>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div class="bk-panel-footer"></div>
                     </div>
-
                 </div>
             </div>
             <div class="modal-footer ta-c">
                 <a class="bk-button bk-primary" data-dismiss="modal" title="添加" @click="closeViewOrderDetail">关闭</a>
             </div>
-
         </el-dialog>
     </section>
 </template>
-<script>
-    import '../style/css/bootstrap.min.css'
-    import '../style/css/bk_pro.css'
-    import '../style/css/iconfont.css'
-    import '../style/css/common.css'
-    import '../style/css/index.css'
-    import moment from 'moment'
-    import { Message } from 'element-ui'
-    import { md5 } from '../utils/util_main'
+<script> 
+import moment from 'moment'
+import { Message } from 'element-ui'
+import { md5 } from '../utils/util_main'
 
 
 
-    export default{
+export default {
 
-        data(){
-            return{
-                enterpriseTelphone:'',
-                newOrderVisible:false,
-                topTime:0,
-                orderState:0,
-                orderNo:'',
-                listLoading: false,
-                orderList:[],
-                pageIndexList:[],
-                curPageIndex:1,
-                viewOrderDetailShow:false,
-                viewDetailListShow:false,
-                orderType:10,
-                templateList:[],
-                selectedTemplateId:0,
-                templateContent:'',
-                isSubmittingOrder:false,
-                orderBaseInfo:{
-                   orderType:'',
-                    orderSource:'',
-                    orderId:'',
-                    createTime:'',
-                    phoneNum:'',
-                    lawFirmName:'',
-                    templateContent:'',
-                    sendTime:'',
-                    arriveTime:'',
-                    orderState:0,
-                    successNum:0,
-                    totalNum:0,
-
-                },
-                viewingOrderId:'',
-                curSendDetailPageIndex:0,
-                sendDetailList:[],
-                sendDetailIsMore:false,
-                uploadPolicy: {
-                    host: '',
-                },
-                uploadConfig: {
-                    multiple: false,
-                    thread: 5,
-                    data: {},
-                    accept: '.xlsx'
-                },
-                fileList: [],
-                uploadFileUrl:'',
-                templateExecelUrl:''
-
-
-            }
-        },
-        watch:{
-            selectedTemplateId:function () {
-                for(var index in this.templateList){
-                    var templateData = this.templateList[index];
-                    if(this.selectedTemplateId === templateData.templateId){
-                        this.templateContent = templateData.templateContent;
-                        this.templateExecelUrl = templateData.excelUrl;
-                    }
-                }
-            }
-        },
-        methods:{
-            showNewOrderDialog:function () {
-
-                this.newOrderVisible = true;
-                let reqParam = {};
-                reqParam = {
-                  lawFirmId:1,
-                  templateType:1
-                };
-                this.$http.ajaxGet({
-                    url: 'lawFirm/templateListQuery',
-                    params: reqParam
-                }, (res) => {
-                    this.$http.aop(res, (isSuccess) => {
-                        if(res.body.data.templateList){
-                            this.templateList = res.body.data.templateList;
-                            var firstTemplate = this.templateList[0];
-                            this.selectedTemplateId = firstTemplate.templateId;
-                        }
-                    });
-
-                });
-
-                this.$http.ajaxGet({
-                    url: 'media/getAliyunPostPolicy'
-                }, (res) => {
-                    this.$http.aop(res, (isSuccess) => {
-                       if(isSuccess)
-                       {
-                           this.uploadPolicy = res.body.data || {};
-                           this.uploadConfig.data.policy = this.uploadPolicy.policy;
-                           this.uploadConfig.data.OSSAccessKeyId = this.uploadPolicy.accessid;
-                           this.uploadConfig.data.signature = this.uploadPolicy.signature;
-                       }
-                    });
-
-                });
+    data() {
+        return {
+            enterpriseTelphone: '',
+            newOrderVisible: false,
+            topTime: 0,
+            orderState: 0,
+            orderNo: '',
+            listLoading: false,
+            orderList: [],
+            pageIndexList: [],
+            curPageIndex: 1,
+            viewOrderDetailShow: false,
+            viewDetailListShow: false,
+            orderType: 10,
+            templateList: [],
+            selectedTemplateId: 0,
+            templateContent: '',
+            isSubmittingOrder: false,
+            orderBaseInfo: {
+                orderType: '',
+                orderSource: '',
+                orderId: '',
+                createTime: '',
+                phoneNum: '',
+                lawFirmName: '',
+                templateContent: '',
+                sendTime: '',
+                arriveTime: '',
+                orderState: 0,
+                successNum: 0,
+                totalNum: 0,
 
             },
-
-            uploadSuccess(response, file, fileList) { //文件长传成功
-                let url = this.uploadPolicy.host + '/' + this.uploadConfig.data.key;
-                this.uploadFileUrl = url;
+            viewingOrderId: '',
+            curSendDetailPageIndex: 0,
+            sendDetailList: [],
+            sendDetailIsMore: false,
+            uploadPolicy: {
+                host: '',
             },
-            beforeUpload(file) {
-                let key = this.uploadPolicy.dir + '/' + md5('' + Date.now + this.uploadPolicy.filename + Math.random());
-                this.uploadConfig.data.key = key;
-
-                return true;
+            uploadConfig: {
+                multiple: false,
+                thread: 5,
+                data: {},
+                accept: '.xlsx'
             },
-
-            uploadRemove(file, fileList) {
-                if (fileList.length > 0) { this.fileList = fileList.slice(-1); }
-            },
-            uploadChange(file, fileList) {
-                if (fileList.length > 0) {
-                    this.fileList = fileList.slice(-1);
-                } else {
-                    this.fileList = [];
-                }
-
-            },
-            uploadError(file, fileList) {
-                this.$message({
-                    type: 'info',
-                    message: '文件上传失败'
-                });
-            },
-            updateTopTime:function (curVal) {
-                this.topTime = curVal;
-            },
-            updateOrderState:function (curVal) {
-                this.orderState = curVal;
-            },
-            onSubmitQuery:function () {
-                this.curPageIndex = 1;
-                this.getOrderListFromSvr();
-
-            },
-            dateTime(val) {
-                var date = new Date(val *1000);
-                var Y = date.getFullYear() + '-';
-                var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-                var D = date.getDate() + ' ';
-                var h = date.getHours() + ':';
-                var m = date.getMinutes() + ':';
-                var s = date.getSeconds();
-                return (Y+M+D+h+m+s);
-               // return moment(val).format('YYYY-MM-DD');
-            },
-            orderStateText(val) {
-                switch (val) {
-                    case 100:
-                        return '申请中';
-                    case 350:
-                        return '发送成功';
-                    case 20:
-                        return '发送失败';
-                    default:
-                        return '未知状态';
-                }
-            },
-            smsSendStateText(val){
-                switch(val){
-                    case 1:
-                        return '发送中';
-                    case 2:
-                        return '发送成功';
-                    case 3:
-                        return '发送失败';
-                    default:
-                        return '未知状态'
-                }
-            },
-            viewOrderDetail:function (curOrderId) {
-                this.viewOrderDetailShow = true;
-                this.viewDetailListShow = false;
-                this.viewingOrderId = curOrderId;
-                let reqParam = {};
-                reqParam = {
-                    orderId:curOrderId
-                };
-                this.$http.ajaxGet({
-                    url: 'order/detailQuery',
-                    params: reqParam
-                }, (res) => {
-                    this.$http.aop(res, (isSuccess) => {
-                       var baseInfo = res.body.data.base;
-                       var detailInfo = res.body.data.detail;
-                       this.orderBaseInfo.orderType = '短信';
-                       this.orderBaseInfo.orderSource = baseInfo.name;
-                       this.orderBaseInfo.orderId = baseInfo.orderId;
-                       this.orderBaseInfo.createTime = this.dateTime(baseInfo.createTime);
-                       this.orderBaseInfo.phoneNum = baseInfo.telephone;
-                       this.orderBaseInfo.lawFirmName = baseInfo.lawFirmName;
-                       this.orderBaseInfo.templateContent = detailInfo.templateContent;
-                       this.orderBaseInfo.orderState = baseInfo.orderState;
-                       this.orderBaseInfo.successNum = baseInfo.succNum;
-                       this.orderBaseInfo.totalNum = baseInfo.totalNum;
-
-                    });
-
-                });
+            fileList: [],
+            uploadFileUrl: '',
+            templateExecelUrl: ''
 
 
-            },
-            onClickPrevPage:function () {
-                this.curPageIndex--;
-                if(this.curPageIndex <= 0){
-                    this.curPageIndex = 1;
-                }
-                this.getOrderListFromSvr();
-            },
-            onClickNextPage:function () {
-                this.curPageIndex++;
-                if(this.curPageIndex > this.totalPageNum){
-                    this.curPageIndex = this.totalPageNum;
-                }
-                this.getOrderListFromSvr();
-            },
-            onClickSomePage:function (curVal) {
-                this.curPageIndex = curVal;
-                this.getOrderListFromSvr();
-            },
-            viewDetailList:function () {
-                this.viewDetailListShow = true;
-                let reqParam = {};
-                reqParam ={
-                   orderId:this.viewingOrderId,
-                    pageNo:this.curSendDetailPageIndex
-
-                };
-                this.$http.ajaxGet({
-                    url: 'order/deliveryDetailListQuery',
-                    params: reqParam
-                }, (res) => {
-                    this.$http.aop(res, (isSuccess) => {
-                        if(isSuccess){
-                            this.sendDetailList = res.body.data.detailList;
-                            if(res.body.data.more){
-                                this.sendDetailIsMore = true;
-                            }
-                            else{
-                                this.sendDetailIsMore = false;
-                            }
-                        }
-                    });
-
-                });
-
-
-
-            },
-            closeDetailList:function () {
-                this.viewDetailListShow = false;
-            },
-            closeViewOrderDetail:function () {
-                this.viewOrderDetailShow = false;
-            },
-            getOrderListFromSvr(){
-               let reqParam = {};
-               reqParam = {
-                   orderType:this.orderType,
-                   orderState:this.orderState,
-                   hours:this.topTime,
-                   orderId:this.orderNo,
-                   pageNo:this.curPageIndex - 1
-               };
-               this.listLoading = true;
-                this.$http.ajaxGet({
-                    url: 'order/listQuery',
-                    params: reqParam
-                }, (res) => {
-                    this.$http.aop(res, (isSuccess) => {
-                        var total = res.body.data.total;
-                        var pageSize = res.body.data.pageSize;
-                        if(res.body.data.orderList instanceof Array){
-                            this.orderList = res.body.data.orderList;
-                        }
-                        var totalPageNum = Math.floor(total/pageSize) + 1;
-                        for(var index =0;index <totalPageNum;index++){
-                            this.pageIndexList[index] = index + 1;
-                        }
-                        this.listLoading = false;
-                    });
-
-                });
-
-            },
-            onSubmitOrder:function () {
-
-                if(this.uploadFileUrl ==''){
-                    Message.warning('请选择文件上传号码包');
-                    return;
-                }
-                if(this.selectedTemplateId == 0){
-                    Message.warning('请选择短信模版');
-                    return;
-                }
-                this.isSubmittingOrder = true;
-                let reqParam = {};
-                reqParam = {
-                   orderType:10,
-                    lawFirmId:1,
-                    templateId:this.selectedTemplateId,
-                    attachmentUrl:this.uploadFileUrl
-                };
-                this.$http.ajaxGet({
-                    url: 'order/create',
-                    params: reqParam
-                }, (res) => {
-                    this.$http.aop(res, (isSuccess) => {
-                        if(isSuccess)
-                        {
-                            Message.success('下单成功');
-                            this.newOrderVisible = false;
-
-                        }
-
-                        this.isSubmittingOrder = false;
-                    });
-                });
-
-               setTimeout(() => {
-                    this.isSubmittingOrder = false;
-               }, 3000);
-            }
-            
-
-        },
-        mounted(){
-            this.getOrderListFromSvr();
         }
+    },
+    watch: {
+        selectedTemplateId: function() {
+            for (var index in this.templateList) {
+                var templateData = this.templateList[index];
+                if (this.selectedTemplateId === templateData.templateId) {
+                    this.templateContent = templateData.templateContent;
+                    this.templateExecelUrl = templateData.excelUrl;
+                }
+            }
+        }
+    },
+    methods: {
+        showNewOrderDialog: function() {
+
+            this.newOrderVisible = true;
+            let reqParam = {};
+            reqParam = {
+                lawFirmId: 1,
+                templateType: 1
+            };
+            this.$http.ajaxGet({
+                url: 'lawFirm/templateListQuery',
+                params: reqParam
+            }, (res) => {
+                this.$http.aop(res, (isSuccess) => {
+                    if (res.body.data.templateList) {
+                        this.templateList = res.body.data.templateList;
+                        var firstTemplate = this.templateList[0];
+                        this.selectedTemplateId = firstTemplate.templateId;
+                    }
+                });
+
+            });
+
+            this.$http.ajaxGet({
+                url: 'media/getAliyunPostPolicy'
+            }, (res) => {
+                this.$http.aop(res, (isSuccess) => {
+                    if (isSuccess) {
+                        this.uploadPolicy = res.body.data || {};
+                        this.uploadConfig.data.policy = this.uploadPolicy.policy;
+                        this.uploadConfig.data.OSSAccessKeyId = this.uploadPolicy.accessid;
+                        this.uploadConfig.data.signature = this.uploadPolicy.signature;
+                    }
+                });
+
+            });
+
+        },
+
+        uploadSuccess(response, file, fileList) { //文件长传成功
+            let url = this.uploadPolicy.host + '/' + this.uploadConfig.data.key;
+            this.uploadFileUrl = url;
+        },
+        beforeUpload(file) {
+            let key = this.uploadPolicy.dir + '/' + md5('' + Date.now + this.uploadPolicy.filename + Math.random());
+            this.uploadConfig.data.key = key;
+
+            return true;
+        },
+
+        uploadRemove(file, fileList) {
+            if (fileList.length > 0) { this.fileList = fileList.slice(-1); }
+        },
+        uploadChange(file, fileList) {
+            if (fileList.length > 0) {
+                this.fileList = fileList.slice(-1);
+            } else {
+                this.fileList = [];
+            }
+
+        },
+        uploadError(file, fileList) {
+            this.$message({
+                type: 'info',
+                message: '文件上传失败'
+            });
+        },
+        updateTopTime: function(curVal) {
+            this.topTime = curVal;
+        },
+        updateOrderState: function(curVal) {
+            this.orderState = curVal;
+        },
+        onSubmitQuery: function() {
+            this.curPageIndex = 1;
+            this.getOrderListFromSvr();
+
+        },
+        dateTime(val) {
+            var date = new Date(val * 1000);
+            var Y = date.getFullYear() + '-';
+            var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+            var D = date.getDate() + ' ';
+            var h = date.getHours() + ':';
+            var m = date.getMinutes() + ':';
+            var s = date.getSeconds();
+            return (Y + M + D + h + m + s);
+            // return moment(val).format('YYYY-MM-DD');
+        },
+        orderStateText(val) {
+            switch (val) {
+                case 100:
+                    return '申请中';
+                case 350:
+                    return '发送成功';
+                case 20:
+                    return '发送失败';
+                default:
+                    return '未知状态';
+            }
+        },
+        smsSendStateText(val) {
+            switch (val) {
+                case 1:
+                    return '发送中';
+                case 2:
+                    return '发送成功';
+                case 3:
+                    return '发送失败';
+                default:
+                    return '未知状态'
+            }
+        },
+        viewOrderDetail: function(curOrderId) {
+            this.viewOrderDetailShow = true;
+            this.viewDetailListShow = false;
+            this.viewingOrderId = curOrderId;
+            let reqParam = {};
+            reqParam = {
+                orderId: curOrderId
+            };
+            this.$http.ajaxGet({
+                url: 'order/detailQuery',
+                params: reqParam
+            }, (res) => {
+                this.$http.aop(res, (isSuccess) => {
+                    var baseInfo = res.body.data.base;
+                    var detailInfo = res.body.data.detail;
+                    this.orderBaseInfo.orderType = '短信';
+                    this.orderBaseInfo.orderSource = baseInfo.name;
+                    this.orderBaseInfo.orderId = baseInfo.orderId;
+                    this.orderBaseInfo.createTime = this.dateTime(baseInfo.createTime);
+                    this.orderBaseInfo.phoneNum = baseInfo.telephone;
+                    this.orderBaseInfo.lawFirmName = baseInfo.lawFirmName;
+                    this.orderBaseInfo.templateContent = detailInfo.templateContent;
+                    this.orderBaseInfo.orderState = baseInfo.orderState;
+                    this.orderBaseInfo.successNum = baseInfo.succNum;
+                    this.orderBaseInfo.totalNum = baseInfo.totalNum;
+
+                });
+
+            });
+
+
+        },
+        onClickPrevPage: function() {
+            this.curPageIndex--;
+            if (this.curPageIndex <= 0) {
+                this.curPageIndex = 1;
+            }
+            this.getOrderListFromSvr();
+        },
+        onClickNextPage: function() {
+            this.curPageIndex++;
+            if (this.curPageIndex > this.totalPageNum) {
+                this.curPageIndex = this.totalPageNum;
+            }
+            this.getOrderListFromSvr();
+        },
+        onClickSomePage: function(curVal) {
+            this.curPageIndex = curVal;
+            this.getOrderListFromSvr();
+        },
+        viewDetailList: function() {
+            this.viewDetailListShow = true;
+            let reqParam = {};
+            reqParam = {
+                orderId: this.viewingOrderId,
+                pageNo: this.curSendDetailPageIndex
+
+            };
+            this.$http.ajaxGet({
+                url: 'order/deliveryDetailListQuery',
+                params: reqParam
+            }, (res) => {
+                this.$http.aop(res, (isSuccess) => {
+                    if (isSuccess) {
+                        this.sendDetailList = res.body.data.detailList;
+                        if (res.body.data.more) {
+                            this.sendDetailIsMore = true;
+                        } else {
+                            this.sendDetailIsMore = false;
+                        }
+                    }
+                });
+
+            });
+
+
+
+        },
+        closeDetailList: function() {
+            this.viewDetailListShow = false;
+        },
+        closeViewOrderDetail: function() {
+            this.viewOrderDetailShow = false;
+        },
+        getOrderListFromSvr() {
+            let reqParam = {};
+            reqParam = {
+                orderType: this.orderType,
+                orderState: this.orderState,
+                hours: this.topTime,
+                orderId: this.orderNo,
+                pageNo: this.curPageIndex - 1
+            };
+            this.listLoading = true;
+            this.$http.ajaxGet({
+                url: 'order/listQuery',
+                params: reqParam
+            }, (res) => {
+                this.$http.aop(res, (isSuccess) => {
+                    var total = res.body.data.total;
+                    var pageSize = res.body.data.pageSize;
+                    if (res.body.data.orderList instanceof Array) {
+                        this.orderList = res.body.data.orderList;
+                    } else {
+                        this.orderList = [];
+                    }
+                    var totalPageNum = Math.floor(total / pageSize) + 1;
+                    for (var index = 0; index < totalPageNum; index++) {
+                        this.pageIndexList[index] = index + 1;
+                    }
+                    this.listLoading = false;
+                });
+
+            });
+
+        },
+        onSubmitOrder: function() {
+
+            if (this.uploadFileUrl == '') {
+                Message.warning('请选择文件上传号码包');
+                return;
+            }
+            if (this.selectedTemplateId == 0) {
+                Message.warning('请选择短信模版');
+                return;
+            }
+            this.isSubmittingOrder = true;
+            let reqParam = {};
+            reqParam = {
+                orderType: 10,
+                lawFirmId: 1,
+                templateId: this.selectedTemplateId,
+                attachmentUrl: this.uploadFileUrl
+            };
+            this.$http.ajaxGet({
+                url: 'order/create',
+                params: reqParam
+            }, (res) => {
+                this.$http.aop(res, (isSuccess) => {
+                    if (isSuccess) {
+                        Message.success('下单成功');
+                        this.newOrderVisible = false;
+
+                    }
+
+                    this.isSubmittingOrder = false;
+                });
+            });
+
+            setTimeout(() => {
+                this.isSubmittingOrder = false;
+            }, 3000);
+        }
+
+
+    },
+    mounted() {
+        this.getOrderListFromSvr();
     }
+}
 </script>
 <style>
-    .el-upload__input {
-        display: none;
-    }
+.el-upload__input {
+    display: none;
+}
 
-    input[type=file] {
-        display: none;
-    }
+input[type=file] {
+    display: none;
+}
 
-    a:hover{
-        cursor:pointer
-    }
-
+a:hover {
+    cursor: pointer
+}
 </style>
