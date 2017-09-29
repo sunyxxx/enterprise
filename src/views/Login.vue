@@ -33,7 +33,7 @@
                             <label class="bk-label">验证码：</label>
                             <div class="bk-form-content">
                                 <input type="text" class="bk-form-input code-input" name="" placeholder="请输入您收到的验证码" v-model="acctForm.smsVerifyCode">
-                                <button type="button" class="btn btn-default code-btn" @click="onClickSendSms">发送验证码</button>
+                                <button type="button" class="btn btn-default code-btn" @click="onClickSendSms">{{verifyCodeBtnText}}</button>
                                 <!-- 交互说明：
                                      点击发送后，切换为60秒后重新发送，并进行倒计时更改数字。
                                      同时按钮添加 disabled
@@ -202,7 +202,11 @@ export default {
                     }
                 ]
 
-            }
+            },
+            verifyCodeBtnText:'发送验证码',
+            isCanSendVerifyCode:true,
+            verifyCodeSendTimeoutCnt:60,
+
 
         };
     },
@@ -242,10 +246,34 @@ export default {
         },
         onClickSendSms:function () {
 
+            if(!this.isCanSendVerifyCode){
+                return;
+            }
+
             if(this.acctForm.acctPhone == ''){
                 Message.warning('请输入手机号');
                 return;
             }
+
+            this.isCanSendVerifyCode = false;
+            var timeoutNum = new Number(this.verifyCodeSendTimeoutCnt);
+
+            this.verifyCodeBtnText = timeoutNum.toString();
+            var timer = setInterval(() => {
+                this.verifyCodeSendTimeoutCnt--;
+                if(this.verifyCodeSendTimeoutCnt == 0){
+                    this.verifyCodeBtnText ='发送验证码';
+                    this.isCanSendVerifyCode = true;
+                    this.verifyCodeSendTimeoutCnt = 60;
+                    clearInterval(timer);
+                }
+                else{
+                    var timeoutNum = new Number(this.verifyCodeSendTimeoutCnt);
+
+                    this.verifyCodeBtnText = timeoutNum.toString();
+                }
+            }, 1000);
+
             let reqParam = {};
             reqParam = {
                 mobile:this.acctForm.acctPhone,

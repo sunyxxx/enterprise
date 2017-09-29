@@ -30,32 +30,25 @@
                 </form>
 
             </div>
-            <div class="cont">
-                <h5>结算信息</h5>
-                <!--<el-form label-width="120px">-->
-                    <!--<el-form-item label="短信剩余次数：">-->
-                        <!--<input type="text" style="width: 200px;border-style:none" class="bk-form-input"  name="" placeholder="" value="敬请期待" readonly>-->
-                    <!--</el-form-item>-->
-                    <!--<el-form-item label="信函剩余次数：" style="margin-top: -20px">-->
-                        <!--<input type="text" style="width: 200px;border-style:none" class="bk-form-input"  name="" placeholder="" value="敬请期待" readonly>-->
-                    <!--</el-form-item>-->
-                <!--</el-form>-->
-                <form class="bk-form" id="validate_form" method="POST" action="javascript:;">
-                    <div class="bk-form-item">
-                        <label class="bk-label">短信剩余次数：</label>
-                        <div class="bk-form-content">
-                            <input type="text" style="width: 200px;border-style:none"  class="bk-form-input" name="" placeholder="" value="敬请期待" readonly>
-                        </div>
-                    </div>
-                    <div class="bk-form-item mt0">
-                        <label class="bk-label">信函剩余次数：</label>
-                        <div class="bk-form-content">
-                            <input type="text" style="width: 200px;border-style:none" class="bk-form-input" name="" placeholder="" value="敬请期待" readonly>
-                        </div>
-                    </div>
-                </form>
+            <!--<div class="cont">-->
+                <!--<h5>结算信息</h5>-->
+            <!---->
+                <!--<form class="bk-form" id="validate_form" method="POST" action="javascript:;">-->
+                    <!--<div class="bk-form-item">-->
+                        <!--<label class="bk-label">短信剩余次数：</label>-->
+                        <!--<div class="bk-form-content">-->
+                            <!--<input type="text" style="width: 200px;border-style:none"  class="bk-form-input" name="" placeholder="" value="敬请期待" readonly>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="bk-form-item mt0">-->
+                        <!--<label class="bk-label">信函剩余次数：</label>-->
+                        <!--<div class="bk-form-content">-->
+                            <!--<input type="text" style="width: 200px;border-style:none" class="bk-form-input" name="" placeholder="" value="敬请期待" readonly>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
 
-            </div>
+            <!--</div>-->
         </div>
         <el-dialog title="修改密码" v-model="isShowModifyPwdDialog" :close-on-click-modal="false">
 
@@ -74,7 +67,7 @@
                             <label class="bk-label">验证码：</label>
                             <div class="bk-form-content">
                                 <input type="text" class="bk-form-input code-input" name="" placeholder="请输入您收到的验证码" v-model="acctForm.smsVerifyCode">
-                                <button type="button" class="btn btn-default code-btn" @click="onClickSendSms">发送验证码</button>
+                                <button type="button" class="btn btn-default code-btn" @click="onClickSendSms">{{verifyCodeBtnText}}</button>
 
                             </div>
                         </div>
@@ -105,36 +98,7 @@
                     </form>
                 </div>
             </div>
-            <!--<el-form :model="acctForm" label-width="120px" :rules="acctFormRules" ref="acctForm">-->
-                <!--<div style="width: 100%; margin: 0 auto;">-->
-                    <!--<el-form-item label="你的账号手机：" prop="acctPhone">-->
-                        <!--<span class="bk-label-text">{{enterpriseTelphone}}</span>-->
-                    <!--</el-form-item>-->
 
-                    <!--<el-form-item label="验证码：" prop="smsVerifyCode">-->
-                        <!--<el-input v-model="acctForm.smsVerifyCode" auto-complete="off" style="width:50%"></el-input><el-button class="btn btn-default code-btn" style="margin-left: 10px" @click="onClickSendSms">发送验证码</el-button>-->
-                    <!--</el-form-item>-->
-                <!--</div>-->
-            <!--</el-form>-->
-            <!--<el-form :model="pwdForm" label-width="120px" :rules="pwdFormRules" ref="pwdForm">-->
-                <!--<div style="width:100%;margin:0 auto;">-->
-                    <!--<el-form-item label="输入新密码：" prop="newPwd">-->
-                        <!--<el-input v-model="pwdForm.newPwd" auto-complete="off" style="width:50%" type="password"></el-input>-->
-                    <!--</el-form-item>-->
-                    <!--<el-form-item label="确认新密码：" prop="repeatNewPwd">-->
-                        <!--<el-input v-model="pwdForm.repeatNewPwd" auto-complete="off" style="width:50%" type="password"></el-input>-->
-                    <!--</el-form-item>-->
-
-                    <!--<el-form-item>-->
-                        <!--<div class="bk-form-content err" v-show="isShowTip">-->
-                            <!--<span class="bk-label-text">两次密码输入不匹配，请重新输入</span>-->
-                        <!--</div>-->
-                    <!--</el-form-item>-->
-                <!--</div>-->
-            <!--</el-form>-->
-            <!--<div class="modal-footer ta-c">-->
-                <!--<a class="bk-button bk-primary" @click="onClickModifyPwd" title="确定修改">确定修改</a>-->
-            <!--</div>-->
         </el-dialog>
 
     </section>
@@ -223,11 +187,35 @@
                          }
                      ]
 
-                 }
+                 },
+                 verifyCodeBtnText:'发送验证码',
+                 isCanSendVerifyCode:true,
+                 verifyCodeSendTimeoutCnt:60,
              }
         },
         methods:{
             onClickSendSms:function () {
+                if(!this.isCanSendVerifyCode){
+                    return;
+                }
+                this.isCanSendVerifyCode = false;
+                var timeoutNum = new Number(this.verifyCodeSendTimeoutCnt);
+
+                this.verifyCodeBtnText = timeoutNum.toString();
+                var timer = setInterval(() => {
+                    this.verifyCodeSendTimeoutCnt--;
+                    if(this.verifyCodeSendTimeoutCnt == 0){
+                        this.verifyCodeBtnText ='发送验证码';
+                        this.isCanSendVerifyCode = true;
+                        this.verifyCodeSendTimeoutCnt = 60;
+                        clearInterval(timer);
+                    }
+                    else{
+                        var timeoutNum = new Number(this.verifyCodeSendTimeoutCnt);
+
+                        this.verifyCodeBtnText = timeoutNum.toString();
+                    }
+                }, 1000);
                 let reqParam = {};
                 reqParam = {
                     mobile:this.enterpriseTelphone,

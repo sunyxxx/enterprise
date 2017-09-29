@@ -134,7 +134,7 @@
                             -->
                             <label class="bk-label">短信内容：</label>
                             <div class="bk-form-content">
-                                <span class="bk-label-text">您收到了一封律师函，点击查看http:wwww.dasdas</span>
+                                <span class="bk-label-text">{{smsNotice}}</span>
                             </div>
                         </div>
                         <div class="bk-form-item mt5">
@@ -271,7 +271,22 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="bk-panel-footer"></div>
+                        <div class="bk-panel-footer">
+                            <div class="bk-page bk-compact-page fr">
+                                <ul>
+                                    <li class="page-item">
+                                        <a class="page-button" @click="onClickPrevPageDetail">
+                                            <i class="bk-icon icon-angle-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-button" @click="onClickNextPageDetail">
+                                            <i class="bk-icon icon-angle-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -336,7 +351,8 @@ export default {
             },
             fileList: [],
             uploadFileUrl: '',
-            templateExcelUrl: ''
+            templateExcelUrl: '',
+            smsNotice:''
 
 
         }
@@ -348,6 +364,7 @@ export default {
                 if (this.selectedTemplateId === templateData.templateId) {
                     this.templateContent = templateData.templateContent;
                     this.templateExcelUrl = templateData.excelUrl;
+                    this.smsNotice = templateData.smsNotice;
                 }
             }
         }
@@ -550,8 +567,26 @@ export default {
 
 
         },
+
+        onClickPrevPageDetail: function() {
+            if(this.curSendDetailPageIndex > 0){
+                this.curSendDetailPageIndex--;
+            }
+            else{
+                this.curSendDetailPageIndex = 0;
+            }
+            this.viewDetailList();
+        },
+        onClickNextPageDetail: function() {
+            if(this.sendDetailIsMore){
+                this.curSendDetailPageIndex++;
+                this.viewDetailList();
+            }
+
+        },
         closeDetailList: function() {
             this.viewDetailListShow = false;
+            this.curSendDetailPageIndex = 0;
         },
         closeViewOrderDetail: function() {
             this.viewOrderDetailShow = false;

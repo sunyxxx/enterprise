@@ -242,7 +242,22 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="bk-panel-footer"></div>
+                        <div class="bk-panel-footer">
+                            <div class="bk-page bk-compact-page fr">
+                                <ul>
+                                    <li class="page-item">
+                                        <a class="page-button" @click="onClickPrevPageDetail">
+                                            <i class="bk-icon icon-angle-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-button" @click="onClickNextPageDetail">
+                                            <i class="bk-icon icon-angle-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -516,8 +531,27 @@ export default {
 
 
         },
+
+        onClickPrevPageDetail: function() {
+           if(this.curSendDetailPageIndex > 0){
+               this.curSendDetailPageIndex--;
+           }
+           else{
+               this.curSendDetailPageIndex = 0;
+           }
+           this.viewDetailList();
+        },
+        onClickNextPageDetail: function() {
+           if(this.sendDetailIsMore){
+               this.curSendDetailPageIndex++;
+               this.viewDetailList();
+           }
+
+        },
         closeDetailList: function() {
             this.viewDetailListShow = false;
+            this.curSendDetailPageIndex = 0;
+
         },
         closeViewOrderDetail: function() {
             this.viewOrderDetailShow = false;
