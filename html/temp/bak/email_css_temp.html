@@ -8,7 +8,6 @@
     html{height: 100%;}
     html,body{color:#1e1e1e;font:16px/1.5 arial;font-family:"Microsoft Yahei","simsun","simsunbd",Serif;}
     body{position: relative;min-height:90%;height:90%;margin: 5% 5%;background: #eaeaea;}
-
     h1{font-size:26px;text-align:center;margin:15px 0 25px 0;color: #000;}
     h2{font-size:18px;}
     h3{font-size:18px; font-weight: normal; color: #000; margin: 5px 0; }
@@ -58,6 +57,7 @@
         <p class="main">就本函告事宜请致电专线: <strong>$platform_tel</strong></p>
 
         <div class="end">
+            <canvas class="signet" id="canvas" width="200" height="200"></canvas>
             <p><strong>上海仁良律师事务所</strong></p>
             <p>承办律师：$attorney_name</p>
             <p>$letter_date</p>
@@ -69,7 +69,7 @@
             <p>第一百零七条:当事人一方不履行合同义务或者履行合同义务不符合约定的,应当承担继续履行,采取补救措施或者赔偿损失等违约责任.</p>
             <p>如已履约,请忽略本函件.</p>
         </div>
-        <canvas class="signet" id="canvas" width="200" height="200"></canvas>
+        
     </div>
 <script>
    var canvas = document.getElementById("canvas"); 
