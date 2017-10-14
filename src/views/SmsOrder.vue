@@ -129,7 +129,7 @@
                         <div class="bk-form-item mt5 mb20">
                             <label class="bk-label">模板内容：</label>
                             <div class="bk-form-content">
-                                <textarea class="bk-form-textarea ignore" readonly>{{templateContent}}</textarea>
+                                <div style="line-height: 20px">{{templateContent}}</div>
                             </div>
                         </div>
                         <div class="bk-form-item mt5">
@@ -199,10 +199,16 @@
                                 </div>
                             </div>
                             <div class="bk-form-item mt5">
+                                <label class="bk-label">模板名称：</label>
+                                <div class="bk-form-content">
+                                    <input type="text" class="bk-form-input" name="" placeholder="" :value="orderBaseInfo.templateName" readonly>
+                                </div>
+                            </div>
+                            <div class="bk-form-item mt5">
                                 <label class="bk-label">模板：</label>
                                 <div class="bk-form-content">
                                     <!-- <input type="text" class="bk-form-input" name="" placeholder="" value="模板2：【法法社】今日有酒今日醉" readonly> -->
-                                    <textarea class="bk-form-textarea ignore" readonly>{{orderBaseInfo.templateContent}}</textarea>
+                                    <div style="line-height: 20px">{{orderBaseInfo.templateContent}}</div>
                                 </div>
                             </div>
                             <div class="bk-form-item mt5">
@@ -301,6 +307,7 @@ export default {
                 createTime: '',
                 phoneNum: '',
                 lawFirmName: '',
+                templateName:'',
                 templateContent: '',
                 sendTime: '',
                 arriveTime: '',
@@ -474,6 +481,7 @@ export default {
                     this.orderBaseInfo.createTime = this.dateTime(baseInfo.createTime);
                     this.orderBaseInfo.phoneNum = baseInfo.telephone;
                     this.orderBaseInfo.lawFirmName = baseInfo.lawFirmName;
+                    this.orderBaseInfo.templateName = detailInfo.templateName;
                     this.orderBaseInfo.templateContent = detailInfo.templateContent;
                     this.orderBaseInfo.orderState = baseInfo.orderState;
                     this.orderBaseInfo.successNum = baseInfo.succNum;
