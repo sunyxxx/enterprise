@@ -1,7 +1,7 @@
 *{margin: 0;padding: 0;}
 html{height: 100%;}
 html,body{color:#1e1e1e;font:16px/1.5 arial;font-family:"Microsoft Yahei","simsun","simsunbd",Serif;}
-body{position: relative;background: #eaeaea;}
+body{position: relative;padding: 5%;}
 h1{font-size:26px;text-align:center;margin:15px 0 25px 0;color: #000;}
 h2{font-size:18px;}
 h3{font-size:18px; font-weight: normal; color: #000; margin: 5px 0; }
@@ -9,7 +9,7 @@ hr{margin-top:15px;border:none;border-top:1px solid #ddd;}
 p{text-indent: 2em;}
 .cont{height:100%;padding: 5% 5%;background: #eaeaea;}
 .email-wrap{position: relative; width: 713px;padding: 40px 40px;margin: 0 auto;background: #fff;}
-.header{width: 100%;padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid #ddd; overflow: hidden;}
+.header{width: 100%;overflow: hidden;}
 .header .logo{float: left;}
 .header .contact{float: right;text-align: right;font-size: 14px;color: #888;padding-top: 12px;}
 .strong{text-align: right; font-weight: bold;color: #da0000;}
@@ -20,7 +20,7 @@ p{text-indent: 2em;}
 .end{position: relative;margin-top: 60px;}
 .end p{text-align: right;}
 .end .signet{position: absolute;top: -40px;right: 40px;opacity: .6;}
-.appendix{width: 100%;border-top:1px solid #ddd;margin-top:25px;padding-top: 10px;font-size: 14px;color: #999;line-height: 32px;text-align:justify;color: #888;font-size: 12px;}
+.appendix{width: 100%;font-size: 14px;color: #999;line-height: 32px;text-align:justify;color: #888;font-size: 12px;}
 .appendix p{margin-bottom: 5px;text-indent: 0;}
 .appendix hr{margin-bottom: 10px;}
 .appendix .ps{text-align: right;color: #da0000;}
