@@ -19,9 +19,9 @@ p{text-indent: 2em;}
 .main{line-height: 42px;text-align:justify;}
 .end{position: relative;margin-top: 60px;}
 .end p{text-align: right;}
-.end .signet{position: absolute;top: -150%;right: 2%;opacity: .6;}
-.appendix{width: 713px;border-top:1px solid #ddd;margin-top:25px;padding-top: 10px;font-size: 14px;color: #999;line-height: 32px;text-align:justify;color: #888;font-size: 12px;}
-.appendix p{margin-bottom: 10px;text-indent: 0;}
+.end .signet{position: absolute;top: -40px;right: 40px;opacity: .6;}
+.appendix{width: 100%;border-top:1px solid #ddd;margin-top:25px;padding-top: 10px;font-size: 14px;color: #999;line-height: 32px;text-align:justify;color: #888;font-size: 12px;}
+.appendix p{margin-bottom: 5px;text-indent: 0;}
 .appendix hr{margin-bottom: 10px;}
 .appendix .ps{text-align: right;color: #da0000;}
 
