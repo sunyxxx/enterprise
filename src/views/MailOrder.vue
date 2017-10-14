@@ -227,6 +227,12 @@
                                 </div>
                             </div>
                             <div class="bk-form-item mt5">
+                                <label class="bk-label">模板名称：</label>
+                                <div class="bk-form-content">
+                                    <input type="text" class="bk-form-input" name="" placeholder="" :value="orderBaseInfo.templateName" readonly>
+                                </div>
+                            </div>
+                            <div class="bk-form-item mt5">
                                 <label class="bk-label">模板：</label>
                                 <div class="bk-form-content">
                                     <a class="bk-text-button bk-info ml10" target="_blank" :href="orderBaseInfo.templateContent" title="查看模板">查看模板</a>
@@ -327,6 +333,7 @@ export default {
                 createTime: '',
                 phoneNum: '',
                 lawFirmName: '',
+                templateName:'',
                 templateContent: '',
                 sendTime: '',
                 arriveTime: '',
@@ -510,6 +517,7 @@ export default {
                     this.orderBaseInfo.createTime = this.dateTime(baseInfo.createTime);
                     this.orderBaseInfo.phoneNum = baseInfo.telephone;
                     this.orderBaseInfo.lawFirmName = baseInfo.lawFirmName;
+                    this.orderBaseInfo.templateName = detailInfo.templateName;
                     this.orderBaseInfo.templateContent = detailInfo.templateContent;
                     this.orderBaseInfo.orderState = baseInfo.orderState;
                     this.orderBaseInfo.successNum = baseInfo.succNum;
