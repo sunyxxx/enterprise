@@ -28,3 +28,5 @@ li{list-style: none;}
 .email.mobile{display: block;position: absolute;bottom: 20px;width:100%;padding:0 20px;text-align: center;font-size: 12px;line-height: 18px;}
 
 .footer{display: block; width: 100%;padding: 35px 20px 35px 20px;text-align: center;color: #8a8b93;font-size: 12px;}
+.footer p{ padding-top: 10px;}
+.footer a{ color:  #8a8b93;};
