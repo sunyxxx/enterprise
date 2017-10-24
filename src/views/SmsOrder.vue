@@ -236,6 +236,7 @@
                                     <tr>
                                         <th>号码</th>
                                         <th>发送状态</th>
+                                        <th>失败原因</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -244,6 +245,7 @@
                                         <td>
                                             <span class="fb bk-text-danger">{{smsSendStateText(deliveryDetail.state)}}</span>
                                         </td>
+                                        <td> {{deliveryDetail.state)}}</td>
                                     </tr>
                                 </tbody>
                             </table>
