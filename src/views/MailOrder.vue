@@ -75,7 +75,8 @@
                             <td>{{orderItem.orderId}}</td>
                             <td>{{orderItem.lawFirmName}}</td>
                             <td v-if="orderItem.orderState === 350"><span class="fb bk-text-success">{{orderStateText(orderItem.orderState)}}</span>({{orderItem.succNum}}/{{orderItem.totalNum}})</td>
-                            <td v-else><span class="fb bk-text-success">{{orderStateText(orderItem.orderState)}}</span></td>
+                            <td v-else-if="orderItem.orderState===100"><span class="fb bk-text-primary">{{orderStateText(orderItem.orderState)}}</span></td>
+                            <td v-else><span class="fb bk-text-danger">{{orderStateText(orderItem.orderState)}}</span></td>
                             <td>{{dateTime(orderItem.createTime)}}</td>
                             <td>
                                 <a class="bk-text-button" @click="viewOrderDetail(orderItem.orderId)">查看详情</a>
@@ -128,6 +129,20 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="bk-form-item mt5">
+                            <label class="bk-label">电子签名：</label>
+                            <div class="bk-form-content">
+                                <label class="bk-form-radio">
+                                    <input type="radio" name="radio2" value="1" v-model="isNeedSign">
+                                    <i class="bk-radio-text">是</i>
+                                </label>
+                                <label class="bk-form-radio">
+                                    <input type="radio" name="radio2" value="0" v-model="isNeedSign">
+                                    <i class="bk-radio-text">否</i>
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="bk-form-item mt5 mb15" v-show="isSyncSendSms=='1'">
                             <!-- 交互说明:
                                  同步发送提醒短信 选择为是时才展示该内容
@@ -244,6 +259,12 @@
                                     <a class="bk-text-button bk-info ml10" title="查看明细" @click="viewDetailList">查看明细</a>
                                 </div>
                             </div>
+                            <div class="bk-form-item mt5">
+                                <label class="bk-label">号码包：</label>
+                                <div class="bk-form-content">
+                                    <a class="bk-text-button bk-info ml10" title="查看号码包" :href="orderBaseInfo.attatchUrl" download>查看号码包</a>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -269,9 +290,11 @@
                                 <tbody>
                                     <tr v-for="deliveryDetail in sendDetailList">
                                         <td>{{deliveryDetail.email}}</td>
-                                        <td>
-                                            <span class="fb bk-text-danger">{{smsSendStateText(deliveryDetail.state)}}</span>
+                                        <td v-if="deliveryDetail.state===1">
+                                            <span class="fb bk-text-primary">{{smsSendStateText(deliveryDetail.state)}}</span>
                                         </td>
+                                        <td v-else-if="deliveryDetail.state===2"> <span class="fb bk-text-success">{{smsSendStateText(deliveryDetail.state)}}</span></td>
+                                        <td v-else><span class="fb bk-text-danger">{{smsSendStateText(deliveryDetail.state)}}</span></td>
                                         <td><a class="bk-text-button" :href="deliveryDetail.url" download>下载电子协议</a></td>
                                     </tr>
                                 </tbody>
@@ -340,13 +363,15 @@ export default {
                 orderState: 0,
                 successNum: 0,
                 totalNum: 0,
+                attatchUrl:''
 
             },
             viewingOrderId: '',
             curSendDetailPageIndex: 0,
             sendDetailList: [],
             sendDetailIsMore: false,
-            isSyncSendSms: '1',
+            isSyncSendSms: '0',
+            isNeedSign:'0',
             uploadPolicy: {
                 host: '',
             },
@@ -519,6 +544,7 @@ export default {
                     this.orderBaseInfo.lawFirmName = baseInfo.lawFirmName;
                     this.orderBaseInfo.templateName = detailInfo.templateName;
                     this.orderBaseInfo.templateContent = detailInfo.templateContent;
+                    this.orderBaseInfo.attatchUrl = detailInfo.attachmentUrl;
                     this.orderBaseInfo.orderState = baseInfo.orderState;
                     this.orderBaseInfo.successNum = baseInfo.succNum;
                     this.orderBaseInfo.totalNum = baseInfo.totalNum;
@@ -647,7 +673,8 @@ export default {
                 lawFirmId: 1,
                 templateId: this.selectedTemplateId,
                 attachmentUrl: this.uploadFileUrl,
-                smsNotify: parseInt(this.isSyncSendSms)
+                smsNotify: parseInt(this.isSyncSendSms),
+                needSign:parseInt(this.isNeedSign)
 
             };
             this.$http.ajaxGet({
