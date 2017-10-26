@@ -74,9 +74,19 @@
                         <tr v-for="orderItem in orderList">
                             <td>{{orderItem.orderId}}</td>
                             <td>{{orderItem.lawFirmName}}</td>
-                            <td v-if="orderItem.orderState === 350"><span class="fb bk-text-success">{{orderStateText(orderItem.orderState)}}</span>({{orderItem.succNum}}/{{orderItem.totalNum}})</td>
-                            <td v-else-if="orderItem.orderState===100"><span class="fb bk-text-primary">{{orderStateText(orderItem.orderState)}}</span></td>
-                            <td v-else><span class="fb bk-text-danger">{{orderStateText(orderItem.orderState)}}</span></td>
+                            <td> 
+                                <el-popover v-if="orderItem.orderState===20"
+                                    placement="top" 
+                                    title="失败原因：" 
+                                    width="150" 
+                                    trigger="hover" 
+                                    :content="orderItem.memo||'未知错误'" >
+                                    <div slot="reference" v-html="orderStateText(orderItem)"> 
+                                    </div>
+                                </el-popover> 
+                                <div v-else v-html="orderStateText(orderItem)"> 
+                                </div>
+                            </td> 
                             <td>{{dateTime(orderItem.createTime)}}</td>
                             <td>
                                 <a class="bk-text-button" @click="viewOrderDetail(orderItem.orderId)">查看详情</a>
@@ -242,19 +252,25 @@
                                 <thead>
                                     <tr>
                                         <th>号码</th>
-                                        <th>发送状态</th>
-                                        <th>失败原因</th>
+                                        <th>发送状态</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="deliveryDetail in sendDetailList">
-                                        <td>{{deliveryDetail.mobile}}</td>
-                                        <td v-if="deliveryDetail.state===1">
-                                            <span class="fb bk-text-primary">{{smsSendStateText(deliveryDetail.state)}}</span>
-                                        </td>
-
-                                        <td v-else-if="deliveryDetail.state===2"> <span class="fb bk-text-success">{{smsSendStateText(deliveryDetail.state)}}</span></td>
-                                        <td v-else><span class="fb bk-text-danger">{{smsSendStateText(deliveryDetail.state)}}</span></td>
+                                        <td>{{deliveryDetail.mobile}}</td>  
+                                        <td> 
+                                            <el-popover v-if="deliveryDetail.state===3"
+                                                placement="top" 
+                                                title="失败原因：" 
+                                                width="150" 
+                                                trigger="hover" 
+                                                :content="deliveryDetail.failReason||'未知错误'" >
+                                                <div slot="reference" v-html="smsSendStateText(deliveryDetail.state)"> 
+                                                </div>
+                                            </el-popover> 
+                                            <div v-else v-html="smsSendStateText(deliveryDetail.state)"> 
+                                            </div>
+                                        </td> 
                                     </tr>
                                 </tbody>
                             </table>
@@ -448,28 +464,28 @@ export default {
             return (Y + M + D + h + m + s);
             // return moment(val).format('YYYY-MM-DD');
         },
-        orderStateText(val) {
-            switch (val) {
+        orderStateText(opts) {
+            switch (opts.orderState) {
                 case 100:
-                    return '申请中';
+                    return '<span class="fb bk-text-info ml0">申请中</span>';
                 case 350:
-                    return '发送成功';
+                     return '<span class="fb bk-text-success ml0 ">发送成功</span>（' + opts.succNum + '/' + opts.totalNum + '）';
                 case 20:
-                    return '发送失败';
+                    return '<span class="fb bk-text-danger ml0 ">发送失败</span>';
                 default:
-                    return '未知状态';
-            }
+                    return '<span class="fb bk-text-info ml0">未知状态</span>';
+            } 
         },
         smsSendStateText(val) {
             switch (val) {
                 case 1:
-                    return '发送中';
+                    return '<span class="fb bk-text-info ml0">发送中</span>';
                 case 2:
-                    return '发送成功';
+                    return '<span class="fb bk-text-success ml0 ">发送成功</span>';
                 case 3:
-                    return '发送失败';
+                    return '<span class="fb bk-text-danger ml0 ">发送失败</span>';
                 default:
-                    return '未知状态'
+                    return '<span class="fb bk-text-info ml0">未知状态</span>'
             }
         },
         viewOrderDetail: function(curOrderId) {
