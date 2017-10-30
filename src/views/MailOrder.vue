@@ -74,19 +74,18 @@
                         <tr v-for="orderItem in orderList">
                             <td>{{orderItem.orderId}}</td>
                             <td>{{orderItem.lawFirmName}}</td>
-                            <td> 
+                            <td>
                                 <el-popover v-if="orderItem.orderState===20"
-                                    placement="top" 
-                                    title="失败原因：" 
-                                    width="150" 
-                                    trigger="hover" 
-                                    :content="orderItem.memo||'未知错误'" >
-                                    <div slot="reference" v-html="orderStateText(orderItem)"> 
-                                    </div>
-                                </el-popover> 
-                                <div v-else v-html="orderStateText(orderItem)"> 
+                                    placement="left"
+                                    title="失败原因："
+                                    width="200"
+                                    trigger="hover">
+                                    <span class="fb bk-text-danger" v-html="orderItem.memo||'未知错误'"></span>
+                                   <div slot="reference" v-html="orderStateText(orderItem)"></div>
+                                </el-popover>
+                                <div v-else v-html="orderStateText(orderItem)">
                                 </div>
-                            </td>  
+                            </td>
                             <td>{{dateTime(orderItem.createTime)}}</td>
                             <td>
                                 <a class="bk-text-button" @click="viewOrderDetail(orderItem.orderId)">查看详情</a>
@@ -147,8 +146,8 @@
                             <label class="bk-label">发送方式：</label>
                             <div class="bk-form-content">
                                 <el-checkbox-group v-model="checkList" @change="handleCheckeChange">
-                                    <el-checkbox label="短信发送"></el-checkbox>
                                     <el-checkbox label="邮箱发送"></el-checkbox>
+                                    <el-checkbox label="短信发送"></el-checkbox>
                                 </el-checkbox-group> 
                             </div>
                         </div>
@@ -306,19 +305,19 @@
                                 <tbody>
                                     <tr v-for="deliveryDetail in sendDetailList">
                                         <td>{{deliveryDetail.email}}</td>
-                                        <td> 
+                                        <td>
                                             <el-popover v-if="deliveryDetail.state===3"
-                                                placement="top" 
-                                                title="失败原因：" 
-                                                width="150" 
-                                                trigger="hover" 
-                                                :content="deliveryDetail.failReason||'未知错误'" >
-                                                <div slot="reference" v-html="smsSendStateText(deliveryDetail.state)"> 
+                                                placement="left"
+                                                title="失败原因："
+                                                width="260"
+                                                trigger="hover">
+                                                <span class="fb bk-text-danger" style="padding-right:5px;" v-html="deliveryDetail.failReason||'未知错误'"></span>
+                                                <div slot="reference" v-html="smsSendStateText(deliveryDetail.state)">
                                                 </div>
-                                            </el-popover> 
-                                            <div v-else v-html="smsSendStateText(deliveryDetail.state)"> 
+                                            </el-popover>
+                                            <div v-else v-html="smsSendStateText(deliveryDetail.state)">
                                             </div>
-                                        </td> 
+                                        </td>
                                         <td><a class="bk-text-button" :href="deliveryDetail.url" download>下载电子协议</a></td>
                                     </tr>
                                 </tbody>
@@ -398,7 +397,7 @@ export default {
             sendDetailIsMore: false,
             isSyncSendSms: '2',
             isNeedSign:'0',
-            sendMethod:2,
+            sendMethod:2,//1:短信 2:邮件 3：邮件和短信
             uploadPolicy: {
                 host: '',
             },
@@ -414,7 +413,7 @@ export default {
             smsNotice:'',
             checkList:['邮箱发送'],
             dialogVisible: false,
-            dialogImageUrl: '' 
+            dialogImageUrl: ''
         }
     },
     watch: {
@@ -527,10 +526,10 @@ export default {
                 case 350:
                      return '<span class="fb bk-text-success ml0 ">发送成功</span>（' + opts.succNum + '/' + opts.totalNum + '）';
                 case 20:
-                    return '<span class="fb bk-text-danger ml0 ">发送失败</span>';
+                    return '<span class="fb bk-text-danger ml0 ">发送失败 <i class="el-icon-warning" style="color:#D3DCE6;"> </i></span>';
                 default:
                     return '<span class="fb bk-text-info ml0">未知状态</span>';
-            } 
+            }
         },
         smsSendStateText(val) {
             switch (val) {
@@ -539,12 +538,11 @@ export default {
                 case 2:
                     return '<span class="fb bk-text-success ml0 ">发送成功</span>';
                 case 3:
-                    return '<span class="fb bk-text-danger ml0 ">发送失败</span>';
+                    return '<span class="fb bk-text-danger ml0 ">发送失败 <i class="el-icon-warning" style="color:#D3DCE6;"> </i></span>';
                 default:
                     return '<span class="fb bk-text-info ml0">未知状态</span>'
             }
         },
-        
         downloadAgreement(urlVal) {
             var aLink = document.createElement('a');
             var blob = new Blob(['www.baidu.com']);
@@ -691,21 +689,23 @@ export default {
 
         },
         handleCheckeChange(value) {
-            let checkedCount = value.length; 
+            let checkedCount = value.length;
             if(checkedCount == 1){
                 if(value[0]=='短信发送'){
                     this.isSyncSendSms = 1;
-                    this.isNeedSign = 0;
+                    //this.isNeedSign = 0;
                     this.sendMethod = 1;
                 }else{
-                    this.isSyncSendSms = 0;
-                    this.isNeedSign = 1;
+                    this.isSyncSendSms = 2;
+                    //this.isNeedSign = 0;
                     this.sendMethod = 2;
                 }
             }else if(checkedCount > 1){
                 this.isSyncSendSms = 1;
-                this.isNeedSign = 1; 
+                this.isNeedSign = 0;
                 this.sendMethod = 3;
+            }else{
+                this.isSyncSendSms = 2;
             }
         },
         onSubmitOrder: function() {
@@ -721,7 +721,6 @@ export default {
                 Message.warning('请选择发送方式');
                 return;
             }
-            
             let reqParam = {};
             reqParam = {
                 orderType: 20,

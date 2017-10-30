@@ -74,7 +74,7 @@ module.exports = (options = {}) => ({
             minify: {
                 removeComments: true, //去注释
                 collapseWhitespace: true, //压缩空格
-                removeAttributeQuotes: true //去除属性引用 
+                removeAttributeQuotes: true //去除属性引用
             },
             //必须通过上面的 CommonsChunkPlugin 的依赖关系自动添加 js，css 等
             chunksSortMode: 'dependency'
@@ -90,7 +90,7 @@ module.exports = (options = {}) => ({
     },
     devServer: {
         host: '127.0.0.1',
-        port: 8015,
+        port: 8018,
         proxy: {
             '/api/': {
                 target: '127.0.0.1',

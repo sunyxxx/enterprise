@@ -74,16 +74,15 @@
                         <tr v-for="orderItem in orderList">
                             <td>{{orderItem.orderId}}</td>
                             <td>{{orderItem.lawFirmName}}</td>
-                            <td> 
+                            <td>
                                 <el-popover v-if="orderItem.orderState===20"
-                                    placement="top" 
-                                    title="失败原因：" 
-                                    width="150" 
-                                    trigger="hover" 
-                                    :content="orderItem.memo||'未知错误'" >
-                                    <div slot="reference" v-html="orderStateText(orderItem)"> 
-                                    </div>
-                                </el-popover> 
+                                    placement="left"
+                                    title="失败原因："
+                                    width="200"
+                                    trigger="hover">
+                                    <span class="fb bk-text-danger" v-html="orderItem.memo||'未知错误'"></span>
+                                   <div slot="reference" v-html="orderStateText(orderItem)"></div>
+                                </el-popover>
                                 <div v-else v-html="orderStateText(orderItem)"> 
                                 </div>
                             </td> 
@@ -96,7 +95,6 @@
                 </table>
             </div>
             <div class="bk-panel-footer p10">
-           
                 <div class="bk-page bk-compact-page fr">
                     <ul>
                         <li class="page-item">
@@ -257,20 +255,20 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="deliveryDetail in sendDetailList">
-                                        <td>{{deliveryDetail.mobile}}</td>  
-                                        <td> 
+                                        <td>{{deliveryDetail.mobile}}</td>
+                                        <td>
                                             <el-popover v-if="deliveryDetail.state===3"
-                                                placement="top" 
-                                                title="失败原因：" 
-                                                width="150" 
-                                                trigger="hover" 
-                                                :content="deliveryDetail.failReason||'未知错误'" >
-                                                <div slot="reference" v-html="smsSendStateText(deliveryDetail.state)"> 
+                                                placement="left"
+                                                title="失败原因："
+                                                width="260"
+                                                trigger="hover">
+                                                <span class="fb bk-text-danger" style="padding-right:5px;" v-html="deliveryDetail.failReason||'未知错误'"></span>
+                                                <div slot="reference" v-html="smsSendStateText(deliveryDetail.state)">
                                                 </div>
-                                            </el-popover> 
-                                            <div v-else v-html="smsSendStateText(deliveryDetail.state)"> 
+                                            </el-popover>
+                                            <div v-else v-html="smsSendStateText(deliveryDetail.state)">
                                             </div>
-                                        </td> 
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -464,6 +462,9 @@ export default {
             return (Y + M + D + h + m + s);
             // return moment(val).format('YYYY-MM-DD');
         },
+        errorType(vel){
+            return '<span class="fb bk-text-danger ml0 ">'+ (vel||'未知错误') +'</span>';
+        },
         orderStateText(opts) {
             switch (opts.orderState) {
                 case 100:
@@ -471,7 +472,7 @@ export default {
                 case 350:
                      return '<span class="fb bk-text-success ml0 ">发送成功</span>（' + opts.succNum + '/' + opts.totalNum + '）';
                 case 20:
-                    return '<span class="fb bk-text-danger ml0 ">发送失败</span>';
+                    return '<span class="fb bk-text-danger ml0 ">发送失败  <i class="el-icon-warning" style="color:#D3DCE6;"> </i></span>';
                 default:
                     return '<span class="fb bk-text-info ml0">未知状态</span>';
             } 
@@ -483,7 +484,7 @@ export default {
                 case 2:
                     return '<span class="fb bk-text-success ml0 ">发送成功</span>';
                 case 3:
-                    return '<span class="fb bk-text-danger ml0 ">发送失败</span>';
+                    return '<span class="fb bk-text-danger ml0 ">发送失败 <i class="el-icon-warning" style="color:#D3DCE6;"> </i></span>';
                 default:
                     return '<span class="fb bk-text-info ml0">未知状态</span>'
             }
@@ -563,9 +564,7 @@ export default {
                     }
                 });
 
-            });
-
-
+            });  
 
         },
 
@@ -641,7 +640,7 @@ export default {
                 orderType: 10,
                 lawFirmId: 1,
                 templateId: this.selectedTemplateId,
-                attachmentUrl: this.uploadFileUrl
+                attachmentUrl: this.uploadFileUrl,
             };
             this.$http.ajaxGet({
                 url: 'order/create',
