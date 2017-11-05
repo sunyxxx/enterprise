@@ -83,9 +83,9 @@
                                     <span class="fb bk-text-danger" v-html="orderItem.memo||'未知错误'"></span>
                                    <div slot="reference" v-html="orderStateText(orderItem)"></div>
                                 </el-popover>
-                                <div v-else v-html="orderStateText(orderItem)"> 
+                                <div v-else v-html="orderStateText(orderItem)">
                                 </div>
-                            </td> 
+                            </td>
                             <td>{{dateTime(orderItem.createTime)}}</td>
                             <td>
                                 <a class="bk-text-button" @click="viewOrderDetail(orderItem.orderId)">查看详情</a>
