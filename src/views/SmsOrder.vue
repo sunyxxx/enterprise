@@ -81,7 +81,7 @@
                                     width="200"
                                     trigger="hover">
                                     <span class="fb bk-text-danger" v-html="orderItem.memo||'未知错误'"></span>
-                                   <div slot="reference" v-html="orderStateText(orderItem)"></div>
+                                   <span slot="reference" v-html="orderStateText(orderItem)"></span>
                                 </el-popover>
                                 <div v-else v-html="orderStateText(orderItem)">
                                 </div>
@@ -263,8 +263,8 @@
                                                 width="260"
                                                 trigger="hover">
                                                 <span class="fb bk-text-danger" style="padding-right:5px;" v-html="deliveryDetail.failReason||'未知错误'"></span>
-                                                <div slot="reference" v-html="smsSendStateText(deliveryDetail.state)">
-                                                </div>
+                                                <span slot="reference" v-html="smsSendStateText(deliveryDetail.state)">
+                                                </span>
                                             </el-popover>
                                             <div v-else v-html="smsSendStateText(deliveryDetail.state)">
                                             </div>
