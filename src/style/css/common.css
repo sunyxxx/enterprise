@@ -32,7 +32,7 @@ a:focus {
         display: none;
     }
 }
-
+.ffs .info{ color: #888; font-size: 12px; font-style: normal; }
 .ffs .modal-content {
     border: none;
     border-radius: 2px;
