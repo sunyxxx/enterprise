@@ -65,7 +65,8 @@
                         </th> -->
                             <th>订单号</th>
                             <th>律所</th>
-                            <th>当前状态</th>
+                            <th>当前状态<span class="inf" style="font-size:12px; color#
+                                    :#888;">（成功/失败/总 ）</span></th>
                             <th>提交时间</th>
                             <th style="width:325px">操作</th>
                         </tr>
@@ -470,7 +471,7 @@ export default {
                 case 100:
                     return '<span class="fb bk-text-info ml0">申请中</span>';
                 case 350:
-                     return '<span class="fb bk-text-success ml0 ">发送成功</span>（' + opts.succNum + '/' + opts.totalNum + '）';
+                     return '<span class="fb bk-text-success ml0 ">发送成功</span>（' + opts.succNum + ' / <i class="fb bk-text-danger">'+ opts.failNum +'</i> / ' + opts.totalNum + '）';
                 case 20:
                     return '<span class="fb bk-text-danger ml0 ">发送失败  <i class="el-icon-warning" style="color:#D3DCE6;"> </i></span>';
                 default:
