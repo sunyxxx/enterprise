@@ -90,6 +90,7 @@
                             <td>{{dateTime(orderItem.createTime)}}</td>
                             <td>
                                 <a class="bk-text-button" @click="viewOrderDetail(orderItem.orderId)">查看详情</a>
+                                <a v-if="orderItem.orderState===100" class="bk-text-button ml10" @click="orderCancel(orderItem.orderId)">取消</a>
                             </td>
                         </tr>
                     </tbody>
@@ -293,6 +294,16 @@
                             <div class="bk-panel-info fl">
                                 <div class="panel-title">信函发送明细</div>
                             </div>
+                            <div class="bk-panel-action fr">
+                                <div class="bk-form bk-inline-form bk-form-small">
+                                    <div class="bk-form-item is-required">
+                                        <div class="bk-form-content">
+                                            <input type="text" class="bk-form-input" v-model="keyword" placeholder="请输入邮箱地址" style="width:150px;">
+                                        </div>
+                                    </div>
+                                    <button class="bk-button bk-primary bk-button-small" @click="searchBtn({orderId:orderBaseInfo.orderId})" title="查询">查询</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="bk-panel-body">
                             <table class="bk-table">
@@ -352,11 +363,11 @@
         </el-dialog>
     </section>
 </template>
-<script> 
+<script>
 import moment from 'moment'
 import { Message } from 'element-ui'
 import { md5 } from '../utils/util_main'
-export default { 
+export default {
     data() {
         return {
             enterpriseTelphone: '',
@@ -414,7 +425,8 @@ export default {
             smsNotice:'',
             checkList:['短信发送'],
             dialogVisible: false,
-            dialogImageUrl: ''
+            dialogImageUrl: '',
+            keyword:''
         }
     },
     watch: {
@@ -528,6 +540,8 @@ export default {
                      return '<span class="fb bk-text-success ml0 ">发送成功</span>（' + opts.succNum + ' / <i class="fb bk-text-danger">'+ opts.failNum +'</i> / ' + opts.totalNum + '）';
                 case 20:
                     return '<span class="fb bk-text-danger ml0 ">发送失败 <i class="el-icon-warning" style="color:#D3DCE6;"> </i></span>';
+                case 21:
+                    return '<span class="fb bk-text-info ml0">订单已取消</span>';
                 default:
                     return '<span class="fb bk-text-info ml0">未知状态</span>';
             }
@@ -753,6 +767,64 @@ export default {
             setTimeout(() => {
                 this.isSubmittingOrder = false;
             }, 3000);
+        },
+        searchBtn:function(obj){
+            let reqParam = {};
+            reqParam = {
+                email: this.keyword,
+                orderId: obj.orderId
+            };
+            this.listLoading = true;
+            this.$http.ajaxGet({
+                url: 'order/deliveryDetailListSearch ',
+                params: reqParam
+            }, (res) => {
+                this.$http.aop(res, (isSuccess) => {
+                    var total = res.body.data.total;
+                    if (res.body.data.detailList instanceof Array) {
+                        this.sendDetailList = res.body.data.detailList;
+                    } else {
+                        this.sendDetailList = [];
+                    }
+                    this.listLoading = false;
+                });
+
+            });
+        },
+        orderCancel: function(id){
+            let reqParam = {};
+            reqParam = {
+                orderId: id
+            };
+            this.$confirm('确定要取消当前订单?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.listLoading = true;
+                this.$http.ajaxGet({
+                    url: 'order/cancel',
+                    params: reqParam
+                }, (res) => {
+                    this.$http.aop(res, (isSuccess) => {
+                        if(isSuccess){
+                            Message.success('取消成功');
+                            this.getOrderListFromSvr();
+                        }else{
+                            Message.error('取消失败');
+                        }
+                        this.getOrderListFromSvr();
+                        this.cancelBtn =  true;
+                        this.listLoading = false;
+                    });
+
+                });
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '  操作已取消'
+                });
+            });
         }
 
 
