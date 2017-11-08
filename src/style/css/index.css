@@ -43,3 +43,13 @@ a,a:hover{text-decoration: none;}
 .other-link{width: 100%;overflow: hidden;}
 .bk-text-button.bk-info{color: #57a3f1;margin: 25px 0 10px 0}
 .change-psw-modal .bk-form-input{width: 268px;}
+
+.el-checkbox__input.is-checked .el-checkbox__inner {
+    background-color: #20a0ff;
+    border-color: #0190fe;
+}
+.el-checkbox__label {
+    font-size: 14px;
+    padding-left: 5px;
+    color: #666666;
+}

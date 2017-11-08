@@ -5,6 +5,7 @@ import BaseInfo from './views/BaseInfo.vue'
 import Main from './views/Main.vue'
 import SmsOrder from './views/SmsOrder.vue'
 import MailOrder from './views/MailOrder.vue'
+import MailTmpl from './views/MailTmpl.vue'
 let routes = [{
         path: '*',
         hidden: true,
@@ -27,7 +28,19 @@ let routes = [{
             { path: '/mailorder', component: MailOrder, name: '电子信函' }
 
         ]
-    }, 
+    },
+    // {
+    //     path: '/',
+    //     component: Home,
+    //     name: '信函下载',
+    //     iconCls: 'icon-order',
+    //     hidden: false,
+    //     leaf: true, //只有一个节点
+    //     paths: '/mailtmpl/',
+    //     children: [
+    //         { path: '/mailtmpl', component: MailTmpl, name: '信函下载' }
+    //     ]
+    // },
     {
         path: '/',
         component: Home,

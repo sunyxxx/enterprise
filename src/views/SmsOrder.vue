@@ -74,8 +74,18 @@
                         <tr v-for="orderItem in orderList">
                             <td>{{orderItem.orderId}}</td>
                             <td>{{orderItem.lawFirmName}}</td>
-                            <td v-if="orderItem.orderState === 350"><span class="fb bk-text-success">{{orderStateText(orderItem.orderState)}}</span>({{orderItem.succNum}}/{{orderItem.totalNum}})</td>
-                            <td v-else><span class="fb bk-text-success">{{orderStateText(orderItem.orderState)}}</span></td>
+                            <td>
+                                <el-popover v-if="orderItem.orderState===20"
+                                    placement="left"
+                                    title="失败原因："
+                                    width="200"
+                                    trigger="hover">
+                                    <span class="fb bk-text-danger" v-html="orderItem.memo||'未知错误'"></span>
+                                   <div slot="reference" v-html="orderStateText(orderItem)"></div>
+                                </el-popover>
+                                <div v-else v-html="orderStateText(orderItem)"> 
+                                </div>
+                            </td> 
                             <td>{{dateTime(orderItem.createTime)}}</td>
                             <td>
                                 <a class="bk-text-button" @click="viewOrderDetail(orderItem.orderId)">查看详情</a>
@@ -85,7 +95,6 @@
                 </table>
             </div>
             <div class="bk-panel-footer p10">
-           
                 <div class="bk-page bk-compact-page fr">
                     <ul>
                         <li class="page-item">
@@ -217,6 +226,12 @@
                                     <a class="bk-text-button bk-info ml10" title="查看明细" @click="viewDetailList">查看明细</a>
                                 </div>
                             </div>
+                            <div class="bk-form-item mt5">
+                                <label class="bk-label">号码包：</label>
+                                <div class="bk-form-content">
+                                    <a class="bk-text-button bk-info ml10" title="查看号码包" :href="orderBaseInfo.attatchUrl" download>查看号码包</a>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -235,14 +250,24 @@
                                 <thead>
                                     <tr>
                                         <th>号码</th>
-                                        <th>发送状态</th>
+                                        <th>发送状态</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="deliveryDetail in sendDetailList">
                                         <td>{{deliveryDetail.mobile}}</td>
                                         <td>
-                                            <span class="fb bk-text-danger">{{smsSendStateText(deliveryDetail.state)}}</span>
+                                            <el-popover v-if="deliveryDetail.state===3"
+                                                placement="left"
+                                                title="失败原因："
+                                                width="260"
+                                                trigger="hover">
+                                                <span class="fb bk-text-danger" style="padding-right:5px;" v-html="deliveryDetail.failReason||'未知错误'"></span>
+                                                <div slot="reference" v-html="smsSendStateText(deliveryDetail.state)">
+                                                </div>
+                                            </el-popover>
+                                            <div v-else v-html="smsSendStateText(deliveryDetail.state)">
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -314,6 +339,7 @@ export default {
                 orderState: 0,
                 successNum: 0,
                 totalNum: 0,
+                attatchUrl:''
 
             },
             viewingOrderId: '',
@@ -436,28 +462,31 @@ export default {
             return (Y + M + D + h + m + s);
             // return moment(val).format('YYYY-MM-DD');
         },
-        orderStateText(val) {
-            switch (val) {
+        errorType(vel){
+            return '<span class="fb bk-text-danger ml0 ">'+ (vel||'未知错误') +'</span>';
+        },
+        orderStateText(opts) {
+            switch (opts.orderState) {
                 case 100:
-                    return '申请中';
+                    return '<span class="fb bk-text-info ml0">申请中</span>';
                 case 350:
-                    return '发送成功';
+                     return '<span class="fb bk-text-success ml0 ">发送成功</span>（' + opts.succNum + '/' + opts.totalNum + '）';
                 case 20:
-                    return '发送失败';
+                    return '<span class="fb bk-text-danger ml0 ">发送失败  <i class="el-icon-warning" style="color:#D3DCE6;"> </i></span>';
                 default:
-                    return '未知状态';
-            }
+                    return '<span class="fb bk-text-info ml0">未知状态</span>';
+            } 
         },
         smsSendStateText(val) {
             switch (val) {
                 case 1:
-                    return '发送中';
+                    return '<span class="fb bk-text-info ml0">发送中</span>';
                 case 2:
-                    return '发送成功';
+                    return '<span class="fb bk-text-success ml0 ">发送成功</span>';
                 case 3:
-                    return '发送失败';
+                    return '<span class="fb bk-text-danger ml0 ">发送失败 <i class="el-icon-warning" style="color:#D3DCE6;"> </i></span>';
                 default:
-                    return '未知状态'
+                    return '<span class="fb bk-text-info ml0">未知状态</span>'
             }
         },
         viewOrderDetail: function(curOrderId) {
@@ -483,6 +512,7 @@ export default {
                     this.orderBaseInfo.lawFirmName = baseInfo.lawFirmName;
                     this.orderBaseInfo.templateName = detailInfo.templateName;
                     this.orderBaseInfo.templateContent = detailInfo.templateContent;
+                    this.orderBaseInfo.attatchUrl = detailInfo.attachmentUrl;
                     this.orderBaseInfo.orderState = baseInfo.orderState;
                     this.orderBaseInfo.successNum = baseInfo.succNum;
                     this.orderBaseInfo.totalNum = baseInfo.totalNum;
@@ -534,9 +564,7 @@ export default {
                     }
                 });
 
-            });
-
-
+            });  
 
         },
 
@@ -612,7 +640,7 @@ export default {
                 orderType: 10,
                 lawFirmId: 1,
                 templateId: this.selectedTemplateId,
-                attachmentUrl: this.uploadFileUrl
+                attachmentUrl: this.uploadFileUrl,
             };
             this.$http.ajaxGet({
                 url: 'order/create',

@@ -31,3 +31,5 @@ li{list-style: none;}
 .email.mobile{display: none;}
 
 .footer{width: 100%;padding-top: 52px;text-align: center;color: #8a8b93;font-size: 12px;}
+.footer p{ padding-top: 10px;}
+.footer a{ color:  #8a8b93;};
