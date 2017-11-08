@@ -20,8 +20,8 @@ li{list-style: none;}
 .banner .phone-num{display: none;}
 
 .header{position: absolute;top: 0px;left: 0px;width: 100%;margin-top:30px;height: 48px;line-height: 48px;color: #ffffff;z-index: 1000;}
-.header .logo{float: left;width: 73px;margin-left:20px;height: 24px;background:url(../img/logo.png) no-repeat;background-size: 100%;line-height: 800px;overflow: hidden;}
-.header .nav{float: right;margin-right:20px;font-size: 14px;line-height: 2;}
+.header .logo{float: left;width: 128px;margin-left:20px;height: 32px;background:url(../img/logo.png) no-repeat;background-size: 100%;line-height: 800px;overflow: hidden;}
+.header .nav{float: right;margin-right:20px;font-size: 14px;line-height: 32px;}
 .header .nav a{color: #ffffff;}
 .header .nav .phone{display: none;}
 

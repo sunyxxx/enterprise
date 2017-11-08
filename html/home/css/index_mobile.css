@@ -21,7 +21,7 @@ li{list-style: none;}
 .banner .phone-num .btn-ghost{display: block;width: 200px;height: 42px;line-height: 42px;border:1px solid #fff;border-radius: 42px;text-align: center;margin: 0 auto;font-size: 14px;color: #fff;}
 
 .header{position: absolute;top: 0px;left: 0px;width: 100%;margin-top:40px;height: 18px;line-height: 18px;color: #ffffff;z-index: 1000;text-align: center;}
-.header .logo{display: inline-block;width: 55px;height: 18px;background:url(../img/logo_m.png) no-repeat;background-size: 100%;line-height: 800px;overflow: hidden;}
+.header .logo{display: inline-block;width: 96px;height: 24px;background:url(../img/logo.png) no-repeat;background-size: 100%;line-height: 800px;overflow: hidden;}
 .header .nav{display: none;}
 
 .email{display: none;}
