@@ -29,18 +29,18 @@ let routes = [{
 
         ]
     },
-    // {
-    //     path: '/',
-    //     component: Home,
-    //     name: '信函下载',
-    //     iconCls: 'icon-order',
-    //     hidden: false,
-    //     leaf: true, //只有一个节点
-    //     paths: '/mailtmpl/',
-    //     children: [
-    //         { path: '/mailtmpl', component: MailTmpl, name: '信函下载' }
-    //     ]
-    // },
+    {
+        path: '/',
+        component: Home,
+        name: '信函下载',
+        iconCls: 'icon-order',
+        hidden: false,
+        leaf: true, //只有一个节点
+        paths: '/mailtmpl/',
+        children: [
+            { path: '/mailtmpl', component: MailTmpl, name: '信函下载' }
+        ]
+    },
     {
         path: '/',
         component: Home,

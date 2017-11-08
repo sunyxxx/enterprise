@@ -14,8 +14,8 @@
                         <div id="status" class="col-md-12 col-lg-12 col-xs-12 mb15">
                             <label class="bk-label pr15" style="width:100px;">当前状态：</label>
                             <a class="bk-button bk-default bk-button-small check-list-button" title="" :class="orderState===0?'on':''" @click="updateOrderState(0)"><span>全部</span></a>
-                            <a class="bk-button bk-default bk-button-small check-list-button" title="" :class="orderState===350?'on':''" @click="updateOrderState(350)"><span>发送成功</span></a>
-                            <a class="bk-button bk-default bk-button-small check-list-button" title="" :class="orderState===20?'on':''" @click="updateOrderState(20)"><span>发送失败</span></a>
+                            <a class="bk-button bk-default bk-button-small check-list-button" title="" :class="orderState===350?'on':''" @click="updateOrderState(350)"><span>生成成功</span></a>
+                            <a class="bk-button bk-default bk-button-small check-list-button" title="" :class="orderState===20?'on':''" @click="updateOrderState(20)"><span>生成失败</span></a>
                         </div>
                     </div>
                     <div class="row more-query-cont mb15">
@@ -90,7 +90,12 @@
                             <td>{{dateTime(orderItem.createTime)}}</td>
                             <td>
                                 <a class="bk-text-button" @click="viewOrderDetail(orderItem.orderId)">查看详情</a>
-                                <a v-if="orderItem.orderState===100" class="bk-text-button ml10" @click="orderCancel(orderItem.orderId)">取消</a>
+                                <template v-if="orderItem.orderState===100">
+                                    <span>正在打包上传中，请耐心等待5~10分钟</span>
+                                </template>
+                                <template v-if="orderItem.orderState===350">
+                                    <a v-if="orderItem.packageUrl" class="bk-text-button" :href="orderItem.packageUrl">打包下载</a>
+                                </template>
                             </td>
                         </tr>
                     </tbody>
@@ -144,15 +149,8 @@
                                 <img class="temp-img" :src="templateContent">
                             </div>
                         </div>
-                        <div class="bk-form-item mt5">
-                            <label class="bk-label">发送方式：</label>
-                            <div class="bk-form-content">
-                                <el-checkbox-group v-model="checkList" @change="handleCheckeChange">
-                                    <!-- <el-checkbox label="邮箱发送"></el-checkbox> -->
-                                    <el-checkbox label="短信发送"></el-checkbox>
-                                </el-checkbox-group>
-                            </div>
-                        </div>
+                        <!-- <div class="bk-form-item mt5">
+                        </div> -->
                         <div class="bk-form-item mt5">
                             <label class="bk-label">电子签名：</label>
                             <div class="bk-form-content">
@@ -168,9 +166,6 @@
                         </div>
 
                         <div class="bk-form-item mt5 mb15" v-show="isSyncSendSms=='1'">
-                            <!-- 交互说明:
-                                 同步发送提醒短信 选择为是时才展示该内容
-                            -->
                             <label class="bk-label">短信内容：</label>
                             <div class="bk-form-content">
                                 <span class="bk-label-text">{{smsNotice}}</span>
@@ -294,16 +289,6 @@
                             <div class="bk-panel-info fl">
                                 <div class="panel-title">信函发送明细</div>
                             </div>
-                            <div class="bk-panel-action fr">
-                                <div class="bk-form bk-inline-form bk-form-small">
-                                    <div class="bk-form-item is-required">
-                                        <div class="bk-form-content">
-                                            <input type="text" class="bk-form-input" v-model="keyword" placeholder="请输入邮箱地址" style="width:150px;">
-                                        </div>
-                                    </div>
-                                    <button class="bk-button bk-primary bk-button-small" @click="searchBtn({orderId:orderBaseInfo.orderId})" title="查询">查询</button>
-                                </div>
-                            </div>
                         </div>
                         <div class="bk-panel-body">
                             <table class="bk-table">
@@ -317,19 +302,19 @@
                                 <tbody>
                                     <tr v-for="deliveryDetail in sendDetailList">
                                         <td>{{deliveryDetail.email}}</td>
-                                        <td>
+                                        <td> 
                                             <el-popover v-if="deliveryDetail.state===3"
-                                                placement="left"
-                                                title="失败原因："
-                                                width="260"
-                                                trigger="hover">
-                                                <span class="fb bk-text-danger" style="padding-right:5px;" v-html="deliveryDetail.failReason||'未知错误'"></span>
-                                                <span slot="reference" v-html="smsSendStateText(deliveryDetail.state)">
+                                                placement="left" 
+                                                title="失败原因：" 
+                                                width="260" 
+                                                trigger="hover" 
+                                                :content="deliveryDetail.failReason||'未知错误'" >
+                                                <span slot="reference" v-html="smsSendStateText(deliveryDetail.state)"> 
                                                 </span>
-                                            </el-popover>
-                                            <div v-else v-html="smsSendStateText(deliveryDetail.state)">
+                                            </el-popover> 
+                                            <div v-else v-html="smsSendStateText(deliveryDetail.state)"> 
                                             </div>
-                                        </td>
+                                        </td> 
                                         <td><a class="bk-text-button" :href="deliveryDetail.url" download>下载电子协议</a></td>
                                     </tr>
                                 </tbody>
@@ -363,11 +348,11 @@
         </el-dialog>
     </section>
 </template>
-<script>
+<script> 
 import moment from 'moment'
 import { Message } from 'element-ui'
 import { md5 } from '../utils/util_main'
-export default {
+export default { 
     data() {
         return {
             enterpriseTelphone: '',
@@ -409,7 +394,7 @@ export default {
             sendDetailIsMore: false,
             isSyncSendSms: '2',
             isNeedSign:'0',
-            sendMethod:1,//1:短信 2:邮件 3：邮件和短信
+            sendMethod:2,//1:短信 2:邮件 3：邮件和短信
             uploadPolicy: {
                 host: '',
             },
@@ -423,10 +408,9 @@ export default {
             uploadFileUrl: '',
             templateExcelUrl: '',
             smsNotice:'',
-            checkList:['短信发送'],
+            checkList:['邮箱发送'],
             dialogVisible: false,
-            dialogImageUrl: '',
-            keyword:''
+            dialogImageUrl: ''
         }
     },
     watch: {
@@ -535,13 +519,11 @@ export default {
         orderStateText(opts) {
             switch (opts.orderState) {
                 case 100:
-                    return '<span class="fb bk-text-info ml0">申请中</span>';
+                    return '<span class="fb bk-text-info ml0">生成中</span>';
                 case 350:
                      return '<span class="fb bk-text-success ml0 ">发送成功</span>（' + opts.succNum + ' / <i class="fb bk-text-danger">'+ opts.failNum +'</i> / ' + opts.totalNum + '）';
                 case 20:
-                    return '<span class="fb bk-text-danger ml0 ">发送失败 <i class="el-icon-warning" style="color:#D3DCE6;"> </i></span>';
-                case 21:
-                    return '<span class="fb bk-text-info ml0">订单已取消</span>';
+                    return '<span class="fb bk-text-danger ml0 ">生成失败 <i class="el-icon-warning" style="color:#D3DCE6;"> </i></span>';
                 default:
                     return '<span class="fb bk-text-info ml0">未知状态</span>';
             }
@@ -549,11 +531,11 @@ export default {
         smsSendStateText(val) {
             switch (val) {
                 case 1:
-                    return '<span class="fb bk-text-info ml0">发送中</span>';
+                    return '<span class="fb bk-text-info ml0">生成中</span>';
                 case 2:
-                    return '<span class="fb bk-text-success ml0 ">发送成功</span>';
+                    return '<span class="fb bk-text-success ml0 ">生成成功</span>';
                 case 3:
-                    return '<span class="fb bk-text-danger ml0 ">发送失败 <i class="el-icon-warning" style="color:#D3DCE6;"> </i></span>';
+                    return '<span class="fb bk-text-danger ml0 ">生成失败 <i class="el-icon-warning" style="color:#D3DCE6;"> </i></span>';
                 default:
                     return '<span class="fb bk-text-info ml0">未知状态</span>'
             }
@@ -674,11 +656,11 @@ export default {
         getOrderListFromSvr() {
             let reqParam = {};
             reqParam = {
-                orderType: this.orderType,
+                orderType: 30,
                 orderState: this.orderState,
                 hours: this.topTime,
                 orderId: this.orderNo,
-                pageNo: this.curPageIndex - 1
+                pageNo: this.curPageIndex - 1,
             };
             this.listLoading = true;
             this.$http.ajaxGet({
@@ -701,7 +683,6 @@ export default {
                 });
 
             });
-
         },
         handleCheckeChange(value) {
             let checkedCount = value.length;
@@ -732,18 +713,18 @@ export default {
                 Message.warning('请选择短信模版');
                 return;
             }
-            if(this.checkList.length<1){
-                Message.warning('请选择发送方式');
-                return;
-            }
+            // if(this.checkList.length<1){
+            //     Message.warning('请选择发送方式');
+            //     return;
+            // }
             let reqParam = {};
             reqParam = {
-                orderType: 20,
+                orderType: 30,
                 lawFirmId: 1,
                 templateId: this.selectedTemplateId,
                 attachmentUrl: this.uploadFileUrl,
-                sendMethod: parseInt(this.sendMethod),
-                needSign:parseInt(this.isNeedSign)
+                //sendMethod: parseInt(this.sendMethod),
+                needSign: parseInt(this.isNeedSign),
 
             };
             // console.log(reqParam);
@@ -761,72 +742,14 @@ export default {
                     }
 
                     this.isSubmittingOrder = false;
+                    this.getOrderListFromSvr();
                 });
             });
 
             setTimeout(() => {
                 this.isSubmittingOrder = false;
             }, 3000);
-        },
-        searchBtn:function(obj){
-            let reqParam = {};
-            reqParam = {
-                email: this.keyword,
-                orderId: obj.orderId
-            };
-            this.listLoading = true;
-            this.$http.ajaxGet({
-                url: 'order/deliveryDetailListSearch ',
-                params: reqParam
-            }, (res) => {
-                this.$http.aop(res, (isSuccess) => {
-                    var total = res.body.data.total;
-                    if (res.body.data.detailList instanceof Array) {
-                        this.sendDetailList = res.body.data.detailList;
-                    } else {
-                        this.sendDetailList = [];
-                    }
-                    this.listLoading = false;
-                });
-
-            });
-        },
-        orderCancel: function(id){
-            let reqParam = {};
-            reqParam = {
-                orderId: id
-            };
-            this.$confirm('确定要取消当前订单?', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).then(() => {
-                this.listLoading = true;
-                this.$http.ajaxGet({
-                    url: 'order/cancel',
-                    params: reqParam
-                }, (res) => {
-                    this.$http.aop(res, (isSuccess) => {
-                        if(isSuccess){
-                            Message.success('取消成功');
-                            this.getOrderListFromSvr();
-                        }else{
-                            Message.error('取消失败');
-                        }
-                        this.getOrderListFromSvr();
-                        this.cancelBtn =  true;
-                        this.listLoading = false;
-                    });
-
-                });
-            }).catch(() => {
-                this.$message({
-                    type: 'info',
-                    message: '  操作已取消'
-                });
-            });
         }
-
 
     },
     mounted() {

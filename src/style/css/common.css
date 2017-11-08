@@ -32,7 +32,7 @@ a:focus {
         display: none;
     }
 }
-
+.ffs .info{ color: #888; font-size: 12px; font-style: normal; }
 .ffs .modal-content {
     border: none;
     border-radius: 2px;
@@ -128,7 +128,10 @@ a:focus {
     background: #616ed6;
     color: #fff;
 }
-
+.ffs span.txt-info{ 
+    font-size: 12px;
+    color: #888;
+}
 .ffs .modal-dialog .bk-dialog-close {
     margin: 14px 10px 0 0;
 }
