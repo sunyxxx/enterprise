@@ -148,8 +148,8 @@
                             <label class="bk-label">发送方式：</label>
                             <div class="bk-form-content">
                                 <el-checkbox-group v-model="checkList" @change="handleCheckeChange">
-                                    <!-- <el-checkbox label="邮箱发送"></el-checkbox> -->
                                     <el-checkbox label="短信发送"></el-checkbox>
+                                    <el-checkbox label="邮箱发送"></el-checkbox>
                                 </el-checkbox-group>
                             </div>
                         </div>
@@ -407,7 +407,7 @@ export default {
             curSendDetailPageIndex: 0,
             sendDetailList: [],
             sendDetailIsMore: false,
-            isSyncSendSms: '2',
+            isSyncSendSms: '1',
             isNeedSign:'0',
             sendMethod:1,//1:短信 2:邮件 3：邮件和短信
             uploadPolicy: {
