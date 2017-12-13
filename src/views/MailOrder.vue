@@ -42,7 +42,6 @@
                 <div class="bk-panel-action fl">
                     <div class="bk-form bk-inline-form bk-form-small">
                         <div class="bk-form-item is-required">
-
                         </div>
                     </div>
                 </div>
@@ -76,13 +75,9 @@
                             <td>{{orderItem.orderId}}</td>
                             <td>{{orderItem.lawFirmName}}</td>
                             <td>
-                                <el-popover v-if="orderItem.orderState===20"
-                                    placement="left"
-                                    title="失败原因："
-                                    width="200"
-                                    trigger="hover">
+                                <el-popover v-if="orderItem.orderState===20" placement="left" title="失败原因：" width="200" trigger="hover">
                                     <span class="fb bk-text-danger" v-html="orderItem.memo||'未知错误'"></span>
-                                   <span slot="reference" v-html="orderStateText(orderItem)"></span>
+                                    <span slot="reference" v-html="orderStateText(orderItem)"></span>
                                 </el-popover>
                                 <div v-else v-html="orderStateText(orderItem)">
                                 </div>
@@ -97,7 +92,6 @@
                 </table>
             </div>
             <div class="bk-panel-footer p10">
-
                 <div class="bk-page bk-compact-page fr">
                     <ul>
                         <li class="page-item">
@@ -126,7 +120,7 @@
                             <div class="bk-form-content">
                                 <span class="bk-label-text">仁良律所</span>
                             </div>
-                        </div> 
+                        </div>
                         <div class="bk-form-item mt5">
                             <label class="bk-label">选择模板：</label>
                             <div class="bk-form-content">
@@ -153,7 +147,7 @@
                                 </el-checkbox-group>
                             </div>
                         </div>
-                        <div class="bk-form-item mt5">
+                        <div v-show="isNeedSignShow==1" class="bk-form-item mt5">
                             <label class="bk-label">电子签名：</label>
                             <div class="bk-form-content">
                                 <label class="bk-form-radio">
@@ -162,11 +156,11 @@
                                 </label>
                                 <label class="bk-form-radio">
                                     <input type="radio" name="radio2" value="0" v-model="isNeedSign">
-                                    <i class="bk-radio-text">否</i>
+                                    <i class="bk-radio-text">否</i> 
                                 </label>
+                                <span class="tipiInfo">（电子签名只对邮件有效）</span>
                             </div>
                         </div>
-
                         <div class="bk-form-item mt5 mb15" v-show="isSyncSendSms=='1'">
                             <!-- 交互说明:
                                  同步发送提醒短信 选择为是时才展示该内容
@@ -188,7 +182,6 @@
                                 <a class="bk-text-button bk-info" title="下载号码包模板，请按照模板填充内容" href="http://fafashe.oss-cn-shenzhen.aliyuncs.com/template/%E7%94%B5%E5%AD%90%E4%BF%A1%E5%87%BD%E5%8F%B7%E7%A0%81%E5%8C%85%E6%A8%A1%E6%9D%BF.xlsx" download>下载号码包模板，请按照模板填充内容</a>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>
@@ -318,11 +311,7 @@
                                     <tr v-for="deliveryDetail in sendDetailList">
                                         <td>{{deliveryDetail.email}}</td>
                                         <td>
-                                            <el-popover v-if="deliveryDetail.state===3"
-                                                placement="left"
-                                                title="失败原因："
-                                                width="260"
-                                                trigger="hover">
+                                            <el-popover v-if="deliveryDetail.state===3" placement="left" title="失败原因：" width="260" trigger="hover">
                                                 <span class="fb bk-text-danger" style="padding-right:5px;" v-html="deliveryDetail.failReason||'未知错误'"></span>
                                                 <span slot="reference" v-html="smsSendStateText(deliveryDetail.state)">
                                                 </span>
@@ -393,23 +382,24 @@ export default {
                 createTime: '',
                 phoneNum: '',
                 lawFirmName: '',
-                templateName:'',
+                templateName: '',
                 templateContent: '',
                 sendTime: '',
                 arriveTime: '',
                 orderState: 0,
                 successNum: 0,
                 totalNum: 0,
-                attatchUrl:''
+                attatchUrl: ''
 
             },
             viewingOrderId: '',
             curSendDetailPageIndex: 0,
             sendDetailList: [],
             sendDetailIsMore: false,
-            isSyncSendSms: '1',
-            isNeedSign:'0',
-            sendMethod:1,//1:短信 2:邮件 3：邮件和短信
+            isSyncSendSms: 1,
+            isNeedSign: 0,
+            isNeedSignShow: 0,
+            sendMethod: 1, //1:短信 2:邮件 3：邮件和短信
             uploadPolicy: {
                 host: '',
             },
@@ -422,11 +412,11 @@ export default {
             fileList: [],
             uploadFileUrl: '',
             templateExcelUrl: '',
-            smsNotice:'',
-            checkList:['短信发送'],
+            smsNotice: '',
+            checkList: ['短信发送'],
             dialogVisible: false,
             dialogImageUrl: '',
-            keyword:''
+            keyword: ''
         }
     },
     watch: {
@@ -526,10 +516,10 @@ export default {
             var date = new Date(val * 1000);
             var Y = date.getFullYear() + '-';
             var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-            var D = (date.getDate() < 10 ? '0' + date.getDate():date.getDate()) + ' ';
-            var h = (date.getHours() < 10 ? '0' + date.getHours():date.getHours()) + ':';
-            var m = (date.getMinutes() < 10 ? '0' + date.getMinutes():date.getMinutes()) + ':';
-            var s = date.getSeconds() < 10 ? '0' + date.getSeconds():date.getSeconds();
+            var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+            var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+            var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+            var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
             return (Y + M + D + h + m + s);
         },
         orderStateText(opts) {
@@ -537,7 +527,7 @@ export default {
                 case 100:
                     return '<span class="fb bk-text-info ml0">申请中</span>';
                 case 350:
-                     return '<span class="fb bk-text-success ml0 ">发送成功</span>（' + opts.succNum + ' / <i class="fb bk-text-danger">'+ opts.failNum +'</i> / ' + opts.totalNum + '）';
+                    return '<span class="fb bk-text-success ml0 ">发送成功</span>（' + opts.succNum + ' / <i class="fb bk-text-danger">' + opts.failNum + '</i> / ' + opts.totalNum + '）';
                 case 20:
                     return '<span class="fb bk-text-danger ml0 ">发送失败 <i class="el-icon-warning" style="color:#D3DCE6;"> </i></span>';
                 case 21:
@@ -649,16 +639,15 @@ export default {
         },
 
         onClickPrevPageDetail: function() {
-            if(this.curSendDetailPageIndex > 0){
+            if (this.curSendDetailPageIndex > 0) {
                 this.curSendDetailPageIndex--;
-            }
-            else{
+            } else {
                 this.curSendDetailPageIndex = 0;
             }
             this.viewDetailList();
         },
         onClickNextPageDetail: function() {
-            if(this.sendDetailIsMore){
+            if (this.sendDetailIsMore) {
                 this.curSendDetailPageIndex++;
                 this.viewDetailList();
             }
@@ -705,21 +694,23 @@ export default {
         },
         handleCheckeChange(value) {
             let checkedCount = value.length;
-            if(checkedCount == 1){
-                if(value[0]=='短信发送'){
+            if (checkedCount == 1) {
+                if (value[0] == '短信发送') {
                     this.isSyncSendSms = 1;
-                    //this.isNeedSign = 0;
+                    this.isNeedSignShow = 0;
                     this.sendMethod = 1;
-                }else{
+                    this.isNeedSign = 0;
+                } else {
                     this.isSyncSendSms = 2;
-                    //this.isNeedSign = 0;
+                    this.isNeedSignShow = 1;
                     this.sendMethod = 2;
                 }
-            }else if(checkedCount > 1){
+            } else if (checkedCount > 1) {
                 this.isSyncSendSms = 1;
+                this.isNeedSignShow = 1;
                 this.isNeedSign = 0;
                 this.sendMethod = 3;
-            }else{
+            } else {
                 this.isSyncSendSms = 2;
             }
         },
@@ -732,7 +723,7 @@ export default {
                 Message.warning('请选择短信模版');
                 return;
             }
-            if(this.checkList.length<1){
+            if (this.checkList.length < 1) {
                 Message.warning('请选择发送方式');
                 return;
             }
@@ -743,7 +734,7 @@ export default {
                 templateId: this.selectedTemplateId,
                 attachmentUrl: this.uploadFileUrl,
                 sendMethod: parseInt(this.sendMethod),
-                needSign:parseInt(this.isNeedSign)
+                needSign: parseInt(this.isNeedSign)
 
             };
             // console.log(reqParam);
@@ -768,7 +759,7 @@ export default {
                 this.isSubmittingOrder = false;
             }, 3000);
         },
-        searchBtn:function(obj){
+        searchBtn: function(obj) {
             let reqParam = {};
             reqParam = {
                 email: this.keyword,
@@ -791,7 +782,7 @@ export default {
 
             });
         },
-        orderCancel: function(id){
+        orderCancel: function(id) {
             let reqParam = {};
             reqParam = {
                 orderId: id
@@ -807,14 +798,14 @@ export default {
                     params: reqParam
                 }, (res) => {
                     this.$http.aop(res, (isSuccess) => {
-                        if(isSuccess){
+                        if (isSuccess) {
                             Message.success('取消成功');
                             this.getOrderListFromSvr();
-                        }else{
+                        } else {
                             Message.error('取消失败');
                         }
                         this.getOrderListFromSvr();
-                        this.cancelBtn =  true;
+                        this.cancelBtn = true;
                         this.listLoading = false;
                     });
 
