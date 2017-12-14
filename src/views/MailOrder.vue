@@ -712,6 +712,7 @@ export default {
                 this.sendMethod = 3;
             } else {
                 this.isSyncSendSms = 2;
+                this.isNeedSignShow = 0;
             }
         },
         onSubmitOrder: function() {
