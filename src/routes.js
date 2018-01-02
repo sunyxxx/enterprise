@@ -6,6 +6,7 @@ import Main from './views/Main.vue'
 import SmsOrder from './views/SmsOrder.vue'
 import MailOrder from './views/MailOrder.vue'
 import MailTmpl from './views/MailTmpl.vue'
+import DownDetail from './views/DownDetail.vue'
 let routes = [{
         path: '*',
         hidden: true,
@@ -33,14 +34,14 @@ let routes = [{
         path: '/',
         component: Home,
         name: '信函下载',
-        iconCls: 'icon-order',
+        iconCls: 'icon-download',
         hidden: false,
         leaf: true, //只有一个节点
         paths: '/mailtmpl/',
         children: [
             { path: '/mailtmpl', component: MailTmpl, name: '信函下载' }
         ]
-    },
+    }, 
     {
         path: '/',
         component: Home,
@@ -51,6 +52,18 @@ let routes = [{
         paths: '/baseinfo',
         children: [
             { path: '/baseinfo', component: BaseInfo, name: '基本信息' }
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '下载明细',
+        iconCls: 'icon-download',
+        hidden: false,
+        leaf: true, //只有一个节点
+        paths: '/down',
+        children: [
+            { path: '/down', component: DownDetail, name: '下载明细' }
         ]
     },
     { path: '*', name: '', component: NotFound, hidden: true },
