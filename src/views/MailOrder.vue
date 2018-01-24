@@ -142,7 +142,7 @@
                             <label class="bk-label">发送方式：</label>
                             <div class="bk-form-content">
                                 <el-checkbox-group v-model="checkList" @change="handleCheckeChange">
-                                    <el-checkbox label="短信发送"></el-checkbox>
+                                    <!-- <el-checkbox label="短信发送"></el-checkbox> -->
                                     <el-checkbox label="邮箱发送"></el-checkbox>
                                 </el-checkbox-group>
                             </div>
@@ -396,9 +396,9 @@ export default {
             curSendDetailPageIndex: 0,
             sendDetailList: [],
             sendDetailIsMore: false,
-            isSyncSendSms: 1,
+            isSyncSendSms: 2, // 短信模板 1：显示 2：不显示
             isNeedSign: 0,
-            isNeedSignShow: 0,
+            isNeedSignShow: 1, // 显示电子签名 1：显示  0：不显示 
             sendMethod: 1, //1:短信 2:邮件 3：邮件和短信
             uploadPolicy: {
                 host: '',
@@ -413,7 +413,7 @@ export default {
             uploadFileUrl: '',
             templateExcelUrl: '',
             smsNotice: '',
-            checkList: ['短信发送'],
+            checkList: ['邮箱发送'],
             dialogVisible: false,
             dialogImageUrl: '',
             keyword: ''
@@ -738,8 +738,6 @@ export default {
                 needSign: parseInt(this.isNeedSign)
 
             };
-            // console.log(reqParam);
-            // return;
             this.isSubmittingOrder = true;
             this.$http.ajaxGet({
                 url: 'order/create',
