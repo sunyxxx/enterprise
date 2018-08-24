@@ -123,7 +123,7 @@
                         <div class="bk-form-item">
                             <label class="bk-label">律所：</label>
                             <div class="bk-form-content">
-                                <span class="bk-label-text">仁良律所</span>
+                                <span class="bk-label-text">互金服律所</span>
                             </div>
                         </div>
                         <div class="bk-form-item mt5">
